@@ -98,7 +98,6 @@ let emailDict = {'James Cartnal':'jcartnal@lcusd.net', 'Jamie Lewsadder':'jlewsa
 let getNameEmail = function(){
     let name = document.querySelector("span.gD").getAttribute('name')
     let email = document.querySelector("span.gD").getAttribute('email')
-    console.log(name, email)
     checkEmail(name, email)
 }
 let checkEmail = function(name, email){
