@@ -2,22 +2,19 @@
 	"name": "LCHS gmail verifier",
 	"version": "1.0",
 	"description": "LCHS gmail verifier",
-	"browser_action": {
-		"default_popup": "popup.html"
-	},
 	"manifest_version": 2,
 	"icons": {
 			"16": "spartan_16.png",
         	"48": "spartan_48.png",
         	"128": "spartan_128.png"},
 	"permissions": [
-		"https://go.lciteam.club/*",
+		"https://mail.google.com/mail/*",
         "alarms"
 	],
 	"content_scripts": [
 	{
-		"matches": ["https://mail.google.com/mail*"],
-		"js": ["contentScript.js", "jquery.min.js"],
+		"matches": ["https://mail.google.com/mail/*"],
+		"js": ["jquery.min.js", "contentScript.js"],
 		"all_frames": true
 	}],
 	"options_page": "options.html"
