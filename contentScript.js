@@ -1,4 +1,4 @@
-let emailDict = {/*'James Cartnal':'jcartnal@lcusd.net', 'Jamie Lewsadder':'jlewsadder@lcusd.net'*/}
+let emailDict = {'James Cartnal':'jcartnal@lcusd.net', 'Jamie Lewsadder':'jlewsadder@lcusd.net'}
 let getNameEmail = function(){
     let name = document.querySelector('span.gD').getAttribute('name')
     let email = document.querySelector('span.gD').getAttribute('email')
