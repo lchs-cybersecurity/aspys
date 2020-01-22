@@ -14,7 +14,7 @@
 	"content_scripts": [
 	{
 		"matches": ["https://mail.google.com/mail/*"],
-		"js": ["jquery.min.js", "contentScript.js"],
+		"js": ["jquery.min.js", "waitForKeyElements.js", "contentScript.js"],
 		"all_frames": true
 	}],
 	"options_page": "options.html"
