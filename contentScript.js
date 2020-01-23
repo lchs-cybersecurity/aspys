@@ -18,7 +18,6 @@ let checkEmail = function(name, email){
         if(email == fLast+'@lcusd.net'){
             verified()
         }
-        console.log(fLast)
     }
 }
 let verified = function(){
