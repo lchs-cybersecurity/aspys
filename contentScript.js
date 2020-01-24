@@ -1,4 +1,6 @@
-let emailDict = {'James Cartnal':'jcartnal@lcusd.net', 'Jamie Lewsadder':'jlewsadder@lcusd.net'}
+let emailDict = {'James Cartnal':'jcartnal@lcusd.net', 'Jamie Lewsadder':'jlewsadder@lcusd.net'} 
+let trustedDomains = ['lcusd.net', 'mylcusd.net']; 
+
 let getNameEmail = function(){
     let name = document.querySelector('span.gD').getAttribute('name')
     let email = document.querySelector('span.gD').getAttribute('email')
@@ -13,14 +15,28 @@ let checkEmail = function(name, email){
             unVerified()
         }
     }
-    else{
-        let fLast = (name[0]+name.split(' ')[1]).toLowerCase()
-        if(email == fLast+'@lcusd.net'){
-            verified()
-        }
+    else {
+        let nameList = name.split(' '); 
+        let [preDomain, domain] = email.split('@'); 
+        
+        let index = preDomain.length - 1; 
+        
+        for (let string = ''; index >= 0 && !Number.isNaN(parseInt(preDomain[index])); index--) {} 
+        
+        let strippedPD = preDomain.slice(0, index + 1); 
+        
+        let fLast = (name[0]+nameList[nameList.length - 1]).toLowerCase(); 
+        
+        //alert(strippedPD); 
+        
+        if (strippedPD == fLast && trustedDomains.indexOf(domain) >= 0) {
+            verified(); 
+        } 
     }
 }
 let verified = function(){
+    //alert('e'); 
+    
     document.querySelector("span.gD").insertAdjacentHTML('beforeend', '<svg height="10pt" viewBox="0 0 512 512" width="10pt" xmlns="http://www.w3.org/2000/svg"><path d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0" fill="#2196f3"/><path d="m385.75 201.75-138.667969 138.664062c-4.160156 4.160157-9.621093 6.253907-15.082031 6.253907s-10.921875-2.09375-15.082031-6.253907l-69.332031-69.332031c-8.34375-8.339843-8.34375-21.824219 0-30.164062 8.339843-8.34375 21.820312-8.34375 30.164062 0l54.25 54.25 123.585938-123.582031c8.339843-8.34375 21.820312-8.34375 30.164062 0 8.339844 8.339843 8.339844 21.820312 0 30.164062zm0 0" fill="#fafafa"/></svg>')
 }
 let unVerified = function(){
