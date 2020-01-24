@@ -16,19 +16,25 @@ let checkEmail = function(name, email){
         }
     }
     else {
+        //splits all the parts of the name
         let nameList = name.split(' '); 
+        //part before the domain and the domain
         let [preDomain, domain] = email.split('@'); 
         
+        //finds the first non-number element (since the pre-domain part has a number at the end) 
         let index = preDomain.length - 1; 
         
         for (; index >= 0 && !Number.isNaN(parseInt(preDomain[index])); index--) {} 
         
+        //pre-domain without the number at the end
         let strippedPD = preDomain.slice(0, index + 1); 
         
+        //name in first-last format
         let fLast = (name[0]+nameList[nameList.length - 1]).toLowerCase(); 
         
         //alert(strippedPD); 
         
+        //stripped pre-domain should equal fLast and the domain should be a trusted domain
         if (strippedPD == fLast && trustedDomains.indexOf(domain) >= 0) {
             verified(); 
         } 
