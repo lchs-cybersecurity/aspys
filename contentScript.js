@@ -21,7 +21,7 @@ let checkEmail = function(name, email){
         
         let index = preDomain.length - 1; 
         
-        for (let string = ''; index >= 0 && !Number.isNaN(parseInt(preDomain[index])); index--) {} 
+        for (; index >= 0 && !Number.isNaN(parseInt(preDomain[index])); index--) {} 
         
         let strippedPD = preDomain.slice(0, index + 1); 
         
