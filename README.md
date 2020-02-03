@@ -7,8 +7,10 @@
 --------
 
 ## Features
-Creates a little checkmark next to email sender if their email address is from a verified domain.
+* ![verified](./assets/verified.png) Creates a little checkmark next to email sender if their email address is from a verified domain.
+* ![unverified](./assets/unverified.png) If the email is unverified, click on red alert icon to send a report email.
 
 ## To-do
-* report phish page
-* style options page
+* style options and report page
+* format report email
+* create about/instructions page
