@@ -23,8 +23,6 @@ function getElementsByClass(className) {
 function checkIfVerifiedEmail(emailAddress, domains) {
     for (i = 0; i < domains.length; i++) {
         var domain = domains[i]
-        console.log(emailAddress)
-        console.log(domain)
         if (emailAddress.endsWith('@'+domain)) {
             return true
         }
