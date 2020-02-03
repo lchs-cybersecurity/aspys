@@ -1,7 +1,7 @@
 {
-	"name": "Organization Mail Verifier",
+	"name": "Gmail Domain Verifier",
 	"version": "1.0",
-	"description": "Prevent phishing attacks against your organization.",
+	"description": "falling for phishing emails targeted at your organization.",
 	"manifest_version": 2,
 	"icons": {
 		"16": "assets/icon-16.png",
@@ -11,7 +11,8 @@
 	},
 	"permissions": [
 		"https://mail.google.com/mail/*",
-        "alarms"
+		"alarms",
+		"storage"
 	],
 	"content_scripts": [
 	{
@@ -26,5 +27,5 @@
 		],
 		"all_frames": true
 	}],
-	"options_page": "options.html"
+    "options_page": "html/options.html"
 }
