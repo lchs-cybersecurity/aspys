@@ -1,12 +1,14 @@
 {
-	"name": "LCHS gmail verifier",
+	"name": "Organization Mail Verifier",
 	"version": "1.0",
-	"description": "LCHS gmail verifier",
+	"description": "Prevent phishing attacks against your organization.",
 	"manifest_version": 2,
 	"icons": {
-			"16": "spartan_16.png",
-        	"48": "spartan_48.png",
-        	"128": "spartan_128.png"},
+		"16": "assets/icon-16.png",
+		"32": "assets/icon-32.png",
+		"48": "assets/icon-48.png",
+		"128": "assets/icon-128.png"
+	},
 	"permissions": [
 		"https://mail.google.com/mail/*",
         "alarms"
@@ -14,7 +16,14 @@
 	"content_scripts": [
 	{
 		"matches": ["https://mail.google.com/mail/*"],
-		"js": ["jquery.min.js", "waitForKeyElements.js", "contentScript.js"],
+		"js": [
+			"js/jquery.min.js",
+			"js/waitForKeyElements.js",
+			"js/contentScript.js"
+		],
+		"css": [
+			"css/verify.css"
+		],
 		"all_frames": true
 	}],
 	"options_page": "options.html"

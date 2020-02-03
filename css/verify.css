@@ -1,0 +1,22 @@
+.verified::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: -4px;
+    height: 16px;
+    width: 16px;
+    background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/phishdetector/assets/check.png");
+    background-size: 16px;
+    background-repeat: no-repeat;
+}
+
+.unverified::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: -4px;
+    height: 16px;
+    width: 16px;
+    background-size: 16px;
+    background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/phishdetector/assets/alert.png");
+}
