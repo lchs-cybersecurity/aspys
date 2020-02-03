@@ -11,6 +11,6 @@
 * ![unverified](./assets/unverified.png) If the email is unverified, click on red alert icon to send a report email.
 
 ## To-do
-* style options and report page
-* format report email
+* fix bug: crashing when opening email chain
+* figure out how to html-format report email
 * create about/instructions page
