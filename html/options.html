@@ -2,28 +2,41 @@
 <html lang="en">
 
   <head>
-    <link href="../css/options.css" rel="stylesheet"/>
+    <link href="../css/maily.css" rel="stylesheet"/>
     <meta charset="utf-8">
     <title>Options</title>
   </head>
 
-  <body class="options">
-    <h1>Gmail Domain Verifier Options</h1>
-    <ul>
-      <li>
-        <label for="domains">Verified Domain List</label><br/>
-        <textarea name="domains" id="domains" rows=6 cols=50 placeholder="myorganization.com, anotherone.net ..."></textarea>
-      </li>
-      <li>
-        <label for="report-token">Report Token</label>
-        <input type=text name="report-token" id="report-token"></input>
-      </li>
-    </ul>
-      <button id="save">save</button>
+  <body>
+    <header>
+      <img class='extension-logo' src="../assets/icon-128.png" alt="Maily">
+      <span class='extension-name'>Gmail Domain Verifier</span>
+    </header>
 
-      <div id="credits">
+    <div class="contents">
+      <h1>Options</h1>
+
+      <ul>
+        <li>
+          <label for="domains">Verified Domain List</label><br/>
+          <textarea name="domains" id="domains" rows=6 cols=50 placeholder="myorganization.com, anotherone.net ..."></textarea>
+        </li>
+        <li>
+          <label for="report-token">Report Token</label>
+          <input type=text name="report-token" id="report-token"></input>
+        </li>
+      </ul>
+
+      <button id="save">Save</button>
+
+    </div>
+
+    <footer>
+      <div class="footer-right">
         <span>developed by <a href="https://lchs-cybersecurity.github.io/lchs-cybersecurity-site/">LCHS Cybersecurity Club</a></span><br/>
       </div>
+    </footer>
+
   </body>
 
   <script src="../js/jquery.min.js"></script>

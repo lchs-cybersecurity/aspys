@@ -14,48 +14,41 @@ $(document).ready(function() {
     $('#contents').append($($.parseHTML(data['contents'])))
 })
 
-$('#send').click(function() {
-    console.log('send')
-})
 
-//update this with your $form selector
-var form_id = "jquery_form";
-var data = {};
+$('#send').click(function() {
+    $(this).text('Sending...')  
+    $(this).prop('disabled', true)  
+
+    chrome.storage.sync.get('report-token', function(storage) {
+        $.post('https://postmail.invotes.com/send',
+            {
+                subject: "Phish Report - " + $('#sender').val(),
+                text: [
+                    `This email has been sent through Gmail Domain Verifier.`,
+                    `Note from reporter (${$('#user').val()}):`,
+                    $('#note').val(),
+                    `\nEMAIL CONTENTS:\n`,
+                    $('#contents').prop('outerHTML')
+                ].join('\n'),
+                access_token: storage['report-token']
+            },
+            onSuccess
+        ).fail(onError)  
+    })
+
+    return false  
+})
 
 function onSuccess() {
     console.log('success')
+    $('#send').text("Sent!")
 }
 
 function onError(error) {
+    $('#send').text("Error")
     console.log(error)
 }
 
-var $sendButton = $("#" + form_id + " [name='send']");
-
-function send() {
-    $sendButton.val('Sending…');
-    $sendButton.prop('disabled',true);
-
-    var subject = $("#" + form_id + " [name='subject']").val();
-    var message = $("#" + form_id + " [name='text']").val();
-    data['subject'] = subject;
-    data['text'] = message;
-
-    chrome.storage.sync.get('report-token', function(storage) {
-        data['access_token'] = storage['report-token'];
-
-        $.post('https://postmail.invotes.com/send',
-            data,
-            onSuccess
-        ).fail(onError);
-    })
-
-    return false;
-}
-
-$sendButton.on('click', send);
-
-var $form = $("#" + form_id);
-$form.submit(function( event ) {
-    event.preventDefault();
-});
+$("#mail-form").submit(function( event ) {
+    event.preventDefault()  
+})  

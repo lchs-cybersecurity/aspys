@@ -2,45 +2,55 @@
 <html lang="en">
 
   <head>
-    <link href="../css/options.css" rel="stylesheet"/>
+    <link href="../css/maily.css" rel="stylesheet"/>
+    <link href="../css/report.css" rel="stylesheet"/>
     <meta charset="utf-8">
     <title>Report Email</title>
   </head>
 
   <body>
-    <h1>Report Email</h1>
-    <ul>
-      <li>
-        <label for="user">Reported by</label>
-        <input name="user" id="user" placeholder="your@mail.com"></input>
-      </li>
-      <li>
-        <label for="sender">Sender</label>
-        <input name="sender" id="sender" placeholder="suspicious@mail.com"></input>
-      </li>
-      <li>
-        <label for="contents">Email Contents</label>
-        <div name="contents" id="contents"></div>
-      </li>
-      <li>
-        <label for="note">Note</label>
-        <input name="note" id="note"></input>
-      </li>
-    </ul>
 
-    <button id="send">send</button>
+    <header>
+      <img class='extension-logo' src="../assets/icon-128.png" alt="Maily">
+      <span class='extension-name'>Gmail Domain Verifier</span>
+    </header>
 
-    <form id="jquery_form">
-      <input type="text" name="subject" placeholder="Subject" />
-      <textarea name="text" placeholder="Message" ></textarea>
-      <input type="submit" name="send" value="Send" />
-      <!-- not required, but we'd appreciate it if you'd link to us somewhere on your site -->
-      <p>Powered by <a href="https://postmail.invotes.com" target="_blank">PostMail</a></p>
-    </form>
+    <div class="contents">
+      <h1>Report Email</h1>
 
-    <div id="credits">
-      <span>developed by <a href="https://lchs-cybersecurity.github.io/lchs-cybersecurity-site/">LCHS Cybersecurity Club</a></span><br/>
+      <form id="mail-form">
+        <ul>
+          <li>
+            <label for="user">Reported by</label>
+            <input type=text name="user" id="user" placeholder="your@mail.com" readonly></input>
+          </li>
+          <li>
+            <label for="sender">Suspicious Sender</label>
+            <input type=text name="sender" id="sender" placeholder="suspicious@mail.com" readonly></input>
+          </li>
+          <li>
+            <label for="contents">Email Contents</label>
+            <div name="contents" id="contents"></div>
+          </li>
+          <li>
+            <label for="note">Note</label></br>
+            <textarea name="note" id="note" rows=10 cols=40 placeholder="Anything you would like the person reading the report to know!"></textarea>
+          </li>
+        </ul>
+        <div class="centered">
+          <button id="send">Send</button>
+        </div>
+      </form>
     </div>
+
+    <footer>
+      <div class="footer-left">
+        <span>Powered by <a href="https://postmail.invotes.com" target="_blank">PostMail</a></span>
+      </div>
+      <div class="footer-right">
+        <span>developed by <a href="https://lchs-cybersecurity.github.io/lchs-cybersecurity-site/">LCHS Cybersecurity Club</a></span><br/>
+      </div>
+    </footer>
 
   </body>
 
