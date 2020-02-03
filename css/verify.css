@@ -5,7 +5,7 @@
     right: -4px;
     height: 16px;
     width: 16px;
-    background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/phishdetector/assets/check.png");
+    background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/phishdetector/master/assets/check.png");
     background-size: 16px;
     background-repeat: no-repeat;
 }
@@ -18,5 +18,5 @@
     height: 16px;
     width: 16px;
     background-size: 16px;
-    background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/phishdetector/assets/alert.png");
+    background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/phishdetector/master/assets/alert.png");
 }
