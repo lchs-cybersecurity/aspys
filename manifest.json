@@ -12,6 +12,7 @@
 	"permissions": [
 		"https://mail.google.com/mail/*",
 		"alarms",
+		"tabs",
 		"storage"
 	],
 	"content_scripts": [
@@ -27,5 +28,10 @@
 		],
 		"all_frames": true
 	}],
+	"background": {
+		"scripts": [
+			"js/background.js"
+		]
+	},
     "options_page": "html/options.html"
 }

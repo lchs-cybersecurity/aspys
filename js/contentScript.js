@@ -4,9 +4,22 @@ function verifyEmail() {
         for (i = 0; i < list.length; i++) {
             var $emailElement = list[i]
             let emailAddress = $emailElement.find('span.gD').attr('email')
-            let isVerified = checkIfVerifiedEmail(emailAddress, data['domains'])
             let $iconElement = $emailElement.find('div.aCi')
-            $iconElement.addClass(isVerified ? 'verified' : 'unverified')
+            let isVerified = checkIfVerifiedEmail(emailAddress, data['domains'])
+            if (isVerified) {
+                $iconElement.addClass('verified')
+            } else {
+                $iconElement.addClass('unverified')
+                $iconElement.click(function() {
+                    chrome.runtime.sendMessage(
+                        {
+                            greeting: "good day, can you open report page please? thanks",
+                            encodedData: "hi"
+                        }, function(response) {
+                        console.log(response);
+                    });
+                })
+            }
         }
     })
 }
