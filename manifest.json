@@ -1,7 +1,7 @@
 {
 	"name": "Gmail Domain Verifier",
 	"version": "1.0",
-	"description": "falling for phishing emails targeted at your organization.",
+	"description": "Stop falling for phishing emails targeted at your organization!",
 	"manifest_version": 2,
 	"icons": {
 		"16": "assets/icon-16.png",
