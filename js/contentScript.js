@@ -14,7 +14,7 @@ function verifyEmail() {
                     chrome.runtime.sendMessage(
                         {
                             greeting: "good day, can you open report page please? thanks",
-                            encodedData: "hi"
+                            encodedData: encodeEmailData($emailElement)
                         }, function(response) {
                         console.log(response);
                     });
@@ -41,6 +41,17 @@ function checkIfVerifiedEmail(emailAddress, domains) {
         }
     }
     return false
+}
+
+function encodeEmailData($emailElement) {
+    let user = $(document).find('div.gb_qb').prop('innerHTML')
+    let emailAddress = $emailElement.find('span.gD').attr('email')
+    let contents = $emailElement.find('div.a3s').prop('outerHTML')
+    return jQuery.param({
+        user:user,
+        sender:emailAddress,
+        contents:contents
+    })
 }
 
 waitForKeyElements('span.gD', verifyEmail)

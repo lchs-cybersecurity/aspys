@@ -11,23 +11,37 @@
     <h1>Report Email</h1>
     <ul>
       <li>
+        <label for="user">Reported by</label>
+        <input name="user" id="user" placeholder="your@mail.com"></input>
+      </li>
+      <li>
         <label for="sender">Sender</label>
-        <input name="sender" id="sender" placeholder="sus@mail.com"></input>
+        <input name="sender" id="sender" placeholder="suspicious@mail.com"></input>
       </li>
       <li>
         <label for="contents">Email Contents</label>
-        <input name="contents" id="contents"></input>
+        <div name="contents" id="contents"></div>
       </li>
       <li>
         <label for="note">Note</label>
         <input name="note" id="note"></input>
       </li>
     </ul>
-      <button id="send">send</button>
 
-      <div id="credits">
-        <span>developed by <a href="https://lchs-cybersecurity.github.io/lchs-cybersecurity-site/">LCHS Cybersecurity Club</a></span><br/>
-      </div>
+    <button id="send">send</button>
+
+    <form id="jquery_form">
+      <input type="text" name="subject" placeholder="Subject" />
+      <textarea name="text" placeholder="Message" ></textarea>
+      <input type="submit" name="send" value="Send" />
+      <!-- not required, but we'd appreciate it if you'd link to us somewhere on your site -->
+      <p>Powered by <a href="https://postmail.invotes.com" target="_blank">PostMail</a></p>
+    </form>
+
+    <div id="credits">
+      <span>developed by <a href="https://lchs-cybersecurity.github.io/lchs-cybersecurity-site/">LCHS Cybersecurity Club</a></span><br/>
+    </div>
+
   </body>
 
   <script src="../js/jquery.min.js"></script>
