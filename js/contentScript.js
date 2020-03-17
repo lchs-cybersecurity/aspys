@@ -2,7 +2,6 @@ function verifyEmail() {
     console.log('verifyEmail')
     chrome.storage.sync.get(['domains', 'whitelist'], function(data) {
         let list = getElementsByClass("ads")
-        let addedMaily = false
         for (i = 0; i < list.length; i++) {
             let $emailElement = list[i]
             let emailAddress = getEmail($emailElement)
@@ -33,12 +32,6 @@ function verifyEmail() {
                     event.stopPropagation()
                     whitelist($emailElement)
                 })
-
-                if (!addedMaily) {
-                    addedMaily = true
-                    // TODO: Display maily like clippy
-                    // $iconElement.parent().append('<img src="https://raw.githubusercontent.com/lchs-cybersecurity/email-domain-verifier/master/assets/icon-128.png" class="maily-warning" height=48/>')
-                }
             }
         }
     })
@@ -101,17 +94,36 @@ function openReport($emailElement) {
 
 function whitelist($emailElement) {
     let emailAddress = getEmail($emailElement)
+    let $whitelist = $emailElement.find('button.whitelist')
     chrome.storage.sync.get('whitelist', function(data) {
         let whitelist = data['whitelist']
-        if (!whitelist.includes(emailAddress) && emailAddress.length > 4) {
-            whitelist.push(emailAddress)
-            chrome.storage.sync.set({'whitelist':whitelist}, function() {
-                let list = getElementsByClass('unverified')
-                for (let element of list) {
-                    element.removeClass('unverified')
+
+        if ($whitelist.html() == "Whitelist") {
+            if (!whitelist.includes(emailAddress) && emailAddress.length > 3) {
+                whitelist.push(emailAddress)
+                chrome.storage.sync.set({'whitelist':whitelist}, function() {
+                    let list = getElementsByClass('unverified')
+                    for (let element of list) {
+                        element.removeClass('unverified')
+                    }
+                    verifyEmail()
+                })
+            }
+            $whitelist.html('Unwhitelist')
+        } else if ($whitelist.html() == "Unwhitelist") {
+            for (let i = whitelist.length - 1; i >= 0; i--) {
+                if (whitelist[i] === emailAddress) {
+                    whitelist.splice(i, 1);
                 }
-                verifyEmail()
-            })
+                chrome.storage.sync.set({'whitelist':whitelist}, function() {
+                    let list = getElementsByClass('verified')
+                    for (let element of list) {
+                        element.removeClass('verified')
+                    }
+                    verifyEmail()
+                })
+            }
+            $whitelist.html('Whitelist')
         }
     })
 }

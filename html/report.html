@@ -2,7 +2,7 @@
 <html lang="en">
 
   <head>
-    <link href="../css/maily.css" rel="stylesheet"/>
+    <link href="../css/veritas.css" rel="stylesheet"/>
     <link href="../css/report.css" rel="stylesheet"/>
     <meta charset="utf-8">
     <title>Report Email</title>
@@ -11,15 +11,15 @@
   <body>
 
     <header>
-      <img class='extension-logo' src="../assets/icon-128.png" alt="Maily">
-      <span class='extension-name'>Gmail Domain Verifier</span>
+      <img class='extension-logo' src="../assets/veritas.svg" alt="Veritas">
+      <span class='extension-name'>Veritas</span>
     </header>
 
     <div class="contents">
       <h1>Report Email</h1>
 
       <form id="mail-form">
-        <ul>
+        <ul class="fields">
           <li>
             <label for="sender"><strong>Re:</strong> Suspicious Sender</label>
             <input type=text name="reportee" id="reportee" placeholder="suspicious@mail.com" readonly></input>
@@ -40,7 +40,7 @@
           </li>
           <li>
             <label for="note">Note</label></br>
-            <textarea name="note" id="note" rows=10 cols=40 placeholder="Anything you would like the person reading the report to know!"></textarea>
+            <textarea name="note" id="note" rows=4 cols=60 placeholder="Anything else you think the report receiver should know?"></textarea>
           </li>
         </ul>
         <div class="centered">
