@@ -8,45 +8,87 @@ function getUrlVars() {
 }
 
 $(document).ready(function() {
-    var data = getUrlVars()
-    $('#user').val(data['user'])
-    $('#sender').val(data['sender'])
-    $('#contents').append($($.parseHTML(data['contents'])))
+    let urlData = getUrlVars()
+    $('#reporter').val(urlData['reporter'])
+    $('#reportee').val(urlData['reportee'])
+    $('#contents').append($($.parseHTML(urlData['contents'])))
+    chrome.storage.sync.get('report-to', function(storageData) {
+        $('#receiver').val(storageData['report-to'])
+    })
 })
-
 
 $('#send').click(function() {
-    $(this).text('Sending...')  
-    $(this).prop('disabled', true)  
-
-    chrome.storage.sync.get('report-token', function(storage) {
-        $.post('https://postmail.invotes.com/send',
-            {
-                subject: "Phish Report - " + $('#sender').val(),
-                text: [
-                    `This email has been sent through Gmail Domain Verifier.`,
-                    `Note from reporter (${$('#user').val()}):`,
-                    $('#note').val(),
-                    `\nEMAIL CONTENTS:\n`,
-                    $('#contents').prop('outerHTML')
-                ].join('\n'),
-                access_token: storage['report-token']
-            },
-            onSuccess
-        ).fail(onError)  
-    })
-
-    return false  
+    if (!($(this).hasClass('gray'))) {
+        if (inputsAreValid()) {
+            sendReport()
+        } else {
+            alert("Make sure all fields are valid!")
+        }
+    }
 })
 
-function onSuccess() {
-    console.log('success')
-    $('#send').text("Sent!")
+function sendReport() {
+    $(this).text('Sending...')  
+    $(this).prop('disabled', true)  
+    let request = $.ajax({
+        type: "POST",
+        url: config['post-url'],
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify(getReportData())
+    })
+    request.done(function( msg ) {
+        console.log(msg)
+        onSuccess()
+    });
+    request.fail(function( jqXHR, textStatus ) {
+        console.log(jqXHR)
+        onError(textStatus)
+    });
 }
 
-function onError(error) {
-    $('#send').text("Error")
-    console.log(error)
+function onSuccess() {
+    $('#send').text("Sent!")
+    $('#send').attr("disabled", true)
+    let exit = confirm("Report sent! Exit tab?")
+    if (exit) {
+        chrome.tabs.getCurrent(function(tab) {
+            chrome.tabs.remove(tab.id, function() { });
+        });
+    }
+}
+
+function onError(message) {
+    let manualSend = confirm(`Uh oh, error occurred: ${message}\nWould you like to send report manually?`)
+    if (manualSend) {
+        emailData = getReportData()
+        let encodedData = jQuery.param({
+            subject:`Reporting email from ${emailData.reportee}`,
+            body:"Screenshot:"
+        })
+        window.location.href = `mailto:${emailData.receiver}?${encodedData}`;
+    }
+}
+
+function getReportData() {
+    return {
+        reportee:$('#reportee').val(),
+        reporter:$('#reporter').val(),
+        receiver:$('#receiver').val(),
+        note:$('#note').val(),
+        body:$('#contents').prop('outerHTML')
+    }
+}
+
+function captureContents() {
+    let captureElement = $("#contents")[0]
+    let w = 600
+    let h = captureElement.scrollHeight
+    html2canvas(captureElement, {allowTaint:true, windowWidth:w, windowHeight:h, width:w, height:h}).then(canvas => {
+        document.body.appendChild(canvas)
+        let imgData = canvas.toDataURL('image/jpeg');
+        console.log(imgData)
+    });
 }
 
 $("#mail-form").submit(function( event ) {

@@ -22,3 +22,35 @@
     z-index: 999;
     cursor: pointer;
 }
+
+.maily-warning {
+    position: absolute;
+    width: 48px;
+    top: -50px;
+    left: 0px;
+    z-index: 999;
+}
+
+.gmail-button {
+    color: white;
+    padding: 2px 8px;
+    margin-left: 4px;
+    font-size: 12px;
+    border-radius: 10px;
+    opacity: 0.78;
+    font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+}
+.gmail-button:hover {
+    opacity: 1.0;
+    cursor: pointer;
+}
+.gmail-button:focus {
+    opacity: 1.0;
+    outline: none;
+}
+.gmail-button.report {
+    background-color: #e40000;
+}
+.gmail-button.whitelist {
+    background-color: #222222;
+}

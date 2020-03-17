@@ -19,12 +19,11 @@
 	{
 		"matches": ["https://mail.google.com/mail/*"],
 		"js": [
-			"js/jquery.min.js",
-			"js/waitForKeyElements.js",
+			"js/lib/jquery.min.js",
 			"js/contentScript.js"
 		],
 		"css": [
-			"css/verify.css"
+			"css/inject.css"
 		],
 		"all_frames": true
 	}],
@@ -33,6 +32,5 @@
 			"js/background.js"
 		]
 	},
-	"options_page": "html/options.html",
-	"content_security_policy":"script-src 'self' https://postmail.invotes.com"
+	"options_page": "html/options.html"
 }

@@ -22,8 +22,12 @@
           <textarea name="domains" id="domains" rows=6 cols=50 placeholder="myorganization.com, anotherone.net ..."></textarea>
         </li>
         <li>
-          <label for="report-token">Report Token</label>
-          <input type=text name="report-token" id="report-token"></input>
+          <label for="whitelist">Whitelist</label><br/>
+          <textarea name="whitelist" id="whitelist" rows=6 cols=50 placeholder="coolperson@mail.com, friend@mail.net ..."></textarea>
+        </li>
+        <li>
+          <label for="report-token">Email to send reports to:</label>
+          <input type=text name="report-to" id="report-to" class="verify-email"></input>
         </li>
       </ul>
 
@@ -39,7 +43,8 @@
 
   </body>
 
-  <script src="../js/jquery.min.js"></script>
+  <script src="../js/lib/jquery.min.js"></script>
+  <script src="../js/verifyForm.js"></script>
   <script src="../js/options.js"></script>
   
 </html>

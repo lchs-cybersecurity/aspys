@@ -21,16 +21,22 @@
       <form id="mail-form">
         <ul>
           <li>
-            <label for="user">Reported by</label>
-            <input type=text name="user" id="user" placeholder="your@mail.com" readonly></input>
+            <label for="sender"><strong>Re:</strong> Suspicious Sender</label>
+            <input type=text name="reportee" id="reportee" placeholder="suspicious@mail.com" readonly></input>
           </li>
           <li>
-            <label for="sender">Suspicious Sender</label>
-            <input type=text name="sender" id="sender" placeholder="suspicious@mail.com" readonly></input>
+            <label for="user"><strong>From:</strong> Responsible Reporter</label>
+            <input type=text name="reporter" id="reporter" placeholder="your@mail.com" readonly></input>
+          </li>
+          <li>
+            <label for="sender"><strong>To:</strong> Report Receiver</label>
+            <input type=text name="receiver" id="receiver" placeholder="techsupport@mail.com" class="verify-email"></input>
           </li>
           <li>
             <label for="contents">Email Contents</label>
-            <div name="contents" id="contents"></div>
+            <div class="contents-container">
+              <div name="contents" id="contents"></div>
+            </div>
           </li>
           <li>
             <label for="note">Note</label></br>
@@ -44,9 +50,6 @@
     </div>
 
     <footer>
-      <div class="footer-left">
-        <span>Powered by <a href="https://postmail.invotes.com" target="_blank">PostMail</a></span>
-      </div>
       <div class="footer-right">
         <span>developed by <a href="https://lchs-cybersecurity.github.io/lchs-cybersecurity-site/">LCHS Cybersecurity Club</a></span><br/>
       </div>
@@ -54,7 +57,10 @@
 
   </body>
 
-  <script src="../js/jquery.min.js"></script>
+  <script src="../js/lib/jquery.min.js"></script>
+  <script src="../js/lib/html2canvas.min.js"></script>
+  <script src="../js/verifyForm.js"></script>
+  <script src="../config.js"></script>
   <script src="../js/report.js"></script>
   
 </html>

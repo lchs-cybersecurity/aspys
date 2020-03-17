@@ -3,7 +3,7 @@ function openSetup() {
 }
 
 function setDefaultSettings() {
-    chrome.storage.sync.set({domains:[]})
+    chrome.storage.sync.set({domains:[], whitelist:[]})
 }
 
 chrome.runtime.onInstalled.addListener(function (info) {
@@ -15,8 +15,7 @@ chrome.runtime.onInstalled.addListener(function (info) {
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-      if (request.greeting == "good day, can you open report page please? thanks") {
-        chrome.tabs.create({url:`../html/report.html?${request.encodedData}`})
-        sendResponse({farewell: "ok"})
-      }
-    });
+        if (request.action == "open-report") {
+            chrome.tabs.create({url:`../html/report.html?${request.encodedData}`})
+        }
+});
