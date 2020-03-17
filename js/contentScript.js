@@ -1,16 +1,15 @@
 function verifyEmail() {
     console.log('verifyEmail')
     chrome.storage.sync.get(['domains', 'whitelist'], function(data) {
-        var list = getElementsByClass("ads")
-        console.log(list.length)
-        var addedMaily = false
+        let list = getElementsByClass("ads")
+        let addedMaily = false
         for (i = 0; i < list.length; i++) {
-            var $emailElement = list[i]
-            let emailAddress = $emailElement.find('span.gD').attr('email')
-            let $iconElement = $emailElement.find('div.aCi')
-            if ($iconElement.hasClass('verified') || $iconElement.hasClass('unverified')) {
-                return
-            }
+            let $emailElement = list[i]
+            let emailAddress = getEmail($emailElement)
+            let $iconElement = getIconElement($emailElement)
+            let alreadyChecked = $iconElement.hasClass('verified') || $iconElement.hasClass('unverified')
+            if (alreadyChecked) continue 
+
             let isVerified = checkIfVerifiedEmail(emailAddress, data)
             if (isVerified) {
                 $iconElement.addClass('verified')
@@ -18,17 +17,23 @@ function verifyEmail() {
                 $iconElement.addClass('unverified')
                 let $report = $('<button class="gmail-button report">Report</button>')
                 let $whitelist= $('<button class="gmail-button whitelist">Whitelist</button>')
-                $emailElement.find('span.gD').append($report)
-                $emailElement.find('span.gD').append($whitelist)
-                $iconElement.click(function() {
+                let $nameElement = getNameElement($emailElement)
+                $nameElement.not(":has(button.report)").append($report)
+                $nameElement.not(":has(button.whitelist)").append($whitelist)
+
+                $iconElement.click(function(event) {
+                    event.stopPropagation()
                     openReport($emailElement)
                 })
-                $report.click(function() {
+                $report.click(function(event) {
+                    event.stopPropagation()
                     openReport($emailElement)
                 })
-                $whitelist.click(function() {
+                $whitelist.click(function(event) {
+                    event.stopPropagation()
                     whitelist($emailElement)
                 })
+
                 if (!addedMaily) {
                     addedMaily = true
                     // TODO: Display maily like clippy
@@ -40,39 +45,50 @@ function verifyEmail() {
 }
 
 function getElementsByClass(className) {
-    var list = []
-    var $element = $('.' + className)
+    let list = []
+    let $element = $('.' + className)
     for (i = 0; i < $element.length; i++) {
         list.push($element.eq(i))
     }
     return list
 }
 
+function getEmail($emailElement) {
+    return getNameElement($emailElement).attr('email')
+}
+function getIconElement($emailElement) {
+    return $emailElement.find('div.aCi')
+}
+function getNameElement($emailElement) {
+    return $emailElement.find('span.gD')
+}
+function getContents($emailElement) {
+    return $emailElement.find('div.a3s').prop('outerHTML')
+}
+function getUserEmail() {
+    return $(document).find('div.gb_qb').prop('innerHTML')
+}
+
 function checkIfVerifiedEmail(emailAddress, data) {
     console.log(emailAddress)
-    console.log(data['whitelist'])
-    console.log(data['domains'])
     for (let w of data['whitelist']) {
         if (emailAddress == w) {
-            return true;
+            return true
         }
     }
     for (let d of data['domains']) {
         if (emailAddress.endsWith('@'+d)) {
-            return true;
+            return true
         }
     }
     return false
 }
 
 function encodeEmailData($emailElement) {
-    let reporter = $(document).find('div.gb_qb').prop('innerHTML')
-    let reportee = $emailElement.find('span.gD').attr('email')
-    let contents = $emailElement.find('div.a3s').prop('outerHTML')
     return jQuery.param({
-        reporter:reporter,
-        reportee:reportee,
-        contents:contents
+        reporter:getUserEmail(),
+        reportee:getEmail($emailElement),
+        contents:getContents($emailElement)
     })
 }
 
@@ -80,26 +96,31 @@ function openReport($emailElement) {
     chrome.runtime.sendMessage({
         action: "open-report",
         encodedData: encodeEmailData($emailElement)
-    });
+    })
 }
 
 function whitelist($emailElement) {
-    let emailAddress = $emailElement.find('span.gD').attr('email')
+    let emailAddress = getEmail($emailElement)
     chrome.storage.sync.get('whitelist', function(data) {
         let whitelist = data['whitelist']
-        whitelist.push(emailAddress)
-        chrome.storage.sync.set({'whitelist':whitelist}, function() {
-            let $iconElement = $emailElement.find('div.aCi')
-            $iconElement.removeClass('unverified')
-            $iconElement.addClass('verified')
-        })
+        if (!whitelist.includes(emailAddress) && emailAddress.length > 4) {
+            whitelist.push(emailAddress)
+            chrome.storage.sync.set({'whitelist':whitelist}, function() {
+                let list = getElementsByClass('unverified')
+                for (let element of list) {
+                    element.removeClass('unverified')
+                }
+                verifyEmail()
+            })
+        }
     })
 }
 
 function checkNodesThenVerify(mutationsList) {
     for (let mutation of mutationsList) {
-        const addedNodes = Array.from( mutation.addedNodes) ;
-        if ( addedNodes && addedNodes.some( node => node.classList && node.classList.contains("Bs") ) ) {
+        const addedNodes = Array.from(mutation.addedNodes)
+        if ( addedNodes && addedNodes.some( node =>
+                node.classList && (node.classList.contains("Bs") || node.classList.contains("aap")) )) {
             verifyEmail()
         }
     }
@@ -107,7 +128,7 @@ function checkNodesThenVerify(mutationsList) {
 
 const observer = new MutationObserver(checkNodesThenVerify)
 observer.observe(document.body, {
-    attributes: true,
+    attributes: false,
     characterData: false,
     childList: true,
     subtree: true
