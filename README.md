@@ -1,5 +1,5 @@
 <div align="center">
-    <h1>Gmail Domain Verifier</h1>
+    <h1>Veritas</h1>
     <img src="assets/icon-128.png" height="100" alt="icon"/>
     <h3>Stop falling for phishing emails targeted at your organization!</h3>
 </div>

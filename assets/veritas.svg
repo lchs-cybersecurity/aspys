@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- LCHS Cybersecurity Club: Veritas Logo -->
+<svg version="1.1" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient id="green-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#00ff4f;" />
+            <stop offset="100%" style="stop-color:#1b5956;" />
+        </linearGradient>
+        <path id="c" d="m360 180c0 99.34-80.66 180-180 180s-180-80.66-180-180 80.66-180 180-180 180 80.66 180 180z" />
+        <clipPath id="e">
+            <use xlink:href="#c" />
+        </clipPath>
+        <path id="b" d="m318.97 180c0 76.39-62.02 138.41-138.41 138.41-76.4 0-138.42-62.02-138.42-138.41s62.02-138.41 138.42-138.41c76.39 0 138.41 62.02 138.41 138.41z" />
+        <path id="a" d="m58.72 108.8 120.71 121.55 121.85-121.55-15.91-25.32-105.94 99.07-105.94-99.07-14.77 25.32z" />
+        <mask id="d">
+            <use fill="#ffffff" xlink:href="#b" />
+            <use xlink:href="#a" />
+            <use fill="black" xlink:href="#a" />
+        </mask>
+    </defs>
+    <g fill="url(#green-gradient)" stroke="url(#green-gradient)">
+        <g clip-path="url(#e)">
+            <use fill-opacity="0" stroke-width="36" xlink:href="#c" />
+        </g>
+        <use mask="url(#d)" xlink:href="#b" />
+    </g>
+</svg>
