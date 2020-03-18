@@ -1,19 +1,26 @@
 function verifyEmail() {
-    console.log('verifyEmail')
     chrome.storage.sync.get(['domains', 'whitelist'], function(data) {
-        let list = getElementsByClass("ads")
-        for (i = 0; i < list.length; i++) {
-            let $emailElement = list[i]
-            let emailAddress = getEmail($emailElement)
-            let $iconElement = getIconElement($emailElement)
+
+        let icons = getElementsByClass("aCi")
+        for (i = 0; i < icons.length; i++) {
+            let $iconElement = icons[i]
             let alreadyChecked = $iconElement.hasClass('verified') || $iconElement.hasClass('unverified')
             if (alreadyChecked) continue 
-
+            let emailAddress = getEmail($iconElement.parent().parent())
             let isVerified = checkIfVerifiedEmail(emailAddress, data)
             if (isVerified) {
                 $iconElement.addClass('verified')
             } else {
                 $iconElement.addClass('unverified')
+            }
+        } 
+
+        let expanded = getElementsByClass("adn")
+        for (i = 0; i < expanded.length; i++) {
+            let $emailElement = expanded[i]
+            let $iconElement = getIconElement($emailElement)
+
+            if ($iconElement.hasClass('unverified')) {
                 let $report = $('<button class="gmail-button report">Report</button>')
                 let $whitelist= $('<button class="gmail-button whitelist">Whitelist</button>')
                 let $nameElement = getNameElement($emailElement)
@@ -27,6 +34,7 @@ function verifyEmail() {
                 $report.click(function(event) {
                     event.stopPropagation()
                     openReport($emailElement)
+                    console.log($emailElement)
                 })
                 $whitelist.click(function(event) {
                     event.stopPropagation()
@@ -63,7 +71,6 @@ function getUserEmail() {
 }
 
 function checkIfVerifiedEmail(emailAddress, data) {
-    console.log(emailAddress)
     for (let w of data['whitelist']) {
         if (emailAddress == w) {
             return true
