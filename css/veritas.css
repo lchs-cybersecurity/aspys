@@ -54,7 +54,12 @@ input, textarea {
   padding: 4px;
 }
 
-input[type="text"] {
+textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+input[type="text"], input[type="password"] {
     width: 200px;
 }
 
@@ -75,6 +80,7 @@ button {
   background-blend-mode: multiply;
   background-color: #ffffff;
   transition: background-color 0.2s;
+  border: none;
 }
 
 button:hover {

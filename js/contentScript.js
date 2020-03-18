@@ -2,8 +2,7 @@ function verifyEmail() {
     chrome.storage.sync.get(['domains', 'whitelist'], function(data) {
 
         let icons = getElementsByClass("aCi")
-        for (i = 0; i < icons.length; i++) {
-            let $iconElement = icons[i]
+        for (let $iconElement of icons) {
             let alreadyChecked = $iconElement.hasClass('verified') || $iconElement.hasClass('unverified')
             if (alreadyChecked) continue 
             let emailAddress = getEmail($iconElement.parent().parent())
@@ -16,8 +15,7 @@ function verifyEmail() {
         } 
 
         let expanded = getElementsByClass("adn")
-        for (i = 0; i < expanded.length; i++) {
-            let $emailElement = expanded[i]
+        for (let $emailElement of expanded) {
             let $iconElement = getIconElement($emailElement)
 
             if ($iconElement.hasClass('unverified')) {

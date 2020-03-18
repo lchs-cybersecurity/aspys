@@ -19,14 +19,26 @@ function updateSave() {
     })
 }
 
+function listify($element) {
+    let rawList = $element.val().split(/[\n\r\s,]+/)
+    let list = []
+    for (let e of rawList) {
+        if (e.length > 0 && !list.includes(e)) {
+            list.push(e)
+        }
+    }
+    return list
+}
+
 function saveOptions() {
     let options = {
-        'domains':$('#domains').val().split(/[\s|,]+/),
-        'whitelist':$('#whitelist').val().split(/[\s|,]+/),
+        'domains':listify($('#domains')),
+        'whitelist':listify($('#whitelist')),
         'report-to':$('#report-to').val()
     }
     chrome.storage.sync.set(options, function() {
         $('#save').text('Saved')
+        loadSettings()
     })
 }
 
