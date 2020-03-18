@@ -1,5 +1,5 @@
 function openSetup() {
-    chrome.tabs.create({url: chrome.extension.getURL('../html/options.html')})
+    chrome.tabs.create({url: chrome.extension.getURL('../html/welcome.html')})
 }
 
 function setDefaultSettings() {

@@ -1,0 +1,43 @@
+.popup {
+  font-size: 14px;
+  width: 240px;
+  height: 240px;
+}
+
+.popup header {
+  padding: 10px;
+}
+
+#options {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  right: 10px;
+}
+
+.popup footer {
+  left: 0;
+  color: #ffffffe0;
+  font-size: 12px;
+  margin: 0;
+}
+
+.popup .footer-right {
+  padding: 8px;
+}
+
+.popup .logo-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.popup .logo-name {
+  font-size: 16px;
+  padding-left: 4px;
+}
+
+.popup .contents {
+  padding: 10px 20px;
+  margin-left: 0;
+  margin-right: 0;
+}

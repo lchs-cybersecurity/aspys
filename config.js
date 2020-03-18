@@ -1,3 +1,4 @@
 var config = {
-    "post-url": "http://0.0.0.0:8000/handle_report"
+    "host": "http://0.0.0.0:8000/",
+    "post-report": "handle_report"
 }

@@ -32,7 +32,7 @@ function sendReport() {
     $(this).prop('disabled', true)  
     let request = $.ajax({
         type: "POST",
-        url: config['post-url'],
+        url: config['host'] + config['post-report'],
         contentType: "application/json",
         dataType: "json",
         data: JSON.stringify(getReportData())
