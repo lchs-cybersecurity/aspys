@@ -40,11 +40,11 @@ function sendReport() {
     request.done(function( msg ) {
         console.log(msg)
         onSuccess()
-    });
+    })
     request.fail(function( jqXHR, textStatus ) {
         console.log(jqXHR)
         onError(textStatus)
-    });
+    })
 }
 
 function onSuccess() {

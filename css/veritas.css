@@ -33,7 +33,7 @@ header {
   align-items: center;
 }
 
-label {
+label, .label {
   font-size: 16px;
   padding-right: 4px;
 }
@@ -134,6 +134,10 @@ footer {
 
 .contents p {
   font-size: 14px;
+}
+
+.contents img {
+  width: 80%
 }
 
 /* Extra small devices (phones, 600px and down) */
