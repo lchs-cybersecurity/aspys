@@ -1,18 +1,26 @@
 .popup {
   font-size: 14px;
   width: 240px;
-  height: 240px;
+  height: 160px;
+}
+
+.popup-contents {
+  padding: 8px;
 }
 
 .popup header {
   padding: 10px;
 }
 
-#options {
+.flex-container, .flex-right {
+  margin: 0;
+  padding: 0;
+}
+
+.icon {
   width: 18px;
   height: 18px;
-  position: absolute;
-  right: 10px;
+  padding: 4px;
 }
 
 .popup footer {

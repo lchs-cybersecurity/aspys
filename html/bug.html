@@ -4,7 +4,7 @@
   <head>
     <link href="../css/veritas.css" rel="stylesheet"/>
     <meta charset="utf-8">
-    <title>Options | Veritas</title>
+    <title>Bug Report | Veritas</title>
   </head>
 
   <body>
@@ -17,25 +17,22 @@
     </header>
 
     <div class="contents">
-      <h1>Options</h1>
+      <h1>Report a bug</h1>
 
+      <p>Thank you for taking the time to report. Apologies for the inconvenience!</p>
       <ul class="fields">
         <li>
-          <label for="domains">Verified Domain List</label><br/>
-          <textarea name="domains" id="domains" rows=6 placeholder="myorganization.com, anotherone.net ..."></textarea>
-        </li>
-        <li>
-          <label for="whitelist">Whitelist</label><br/>
-          <textarea name="whitelist" id="whitelist" rows=6 placeholder="coolperson@mail.com, friend@mail.net ..."></textarea>
+          <label for="issue">Please describe the issue:</label><br/>
+          <textarea name="issue" id="issue" rows=4 placeholder=""></textarea>
         </li>
         <!-- <li>
-          <label for="report-token">Email to send reports to:</label>
-          <input type=text name="report-to" id="report-to" class="verify-email"></input>
+          <label for="files">(Optional) Screenshots</label><br/>
+          <input type="file" name="files" id="files" multiple accept="image/*">
         </li> -->
       </ul>
 
       <div class="centered">
-        <button id="save">Save</button>
+        <button id="send">Send</button>
       </div>
 
     </div>
@@ -49,7 +46,8 @@
   </body>
 
   <script src="../js/lib/jquery.min.js"></script>
+  <script src="../config.js"></script>
   <script src="../js/verifyForm.js"></script>
-  <script src="../js/options.js"></script>
+  <script src="../js/bug.js"></script>
   
 </html>

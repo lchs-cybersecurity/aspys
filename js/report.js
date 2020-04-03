@@ -72,11 +72,13 @@ function onError(message) {
 
 function getReportData() {
     return {
-        reportee:$('#reportee').val(),
-        reporter:$('#reporter').val(),
-        receiver:$('#receiver').val(),
-        note:$('#note').val(),
-        body:$('#contents').prop('outerHTML')
+        data: {
+            reportee: $('#reportee').val(),
+            reporter: $('#reporter').val(),
+            receiver: $('#receiver').val(),
+            note: $('#note').val(),
+            body: $('#contents').prop('outerHTML')
+        }
     }
 }
 

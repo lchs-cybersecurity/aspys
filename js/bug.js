@@ -1,7 +1,6 @@
-let fieldIds = ["improve", "comments"]
+let fieldIds = ["issue"]
 
 $(document).ready(function() {
-    $('#chrome-webstore').attr('href', config['chrome-webstore-link'])
     $('#send').click(function() {
         if (!($(this).hasClass('gray'))) {
             if (fieldsNotEmpty()) {
@@ -24,7 +23,7 @@ function fieldIsEmpty(id) {
 function sendFeedback() {
     let request = $.ajax({
         type: "POST",
-        url: config['host'] + config['post-feedback'],
+        url: config['host'] + config['post-bug'],
         contentType: "application/json",
         dataType: "json",
         data: JSON.stringify(getFeedbackData())
@@ -42,7 +41,6 @@ function sendFeedback() {
 function onSuccess() {
     $('#send').text("Sent!")
     $('#send').attr("disabled", true)
-    chrome.storage.sync.set({"sent_feedback": true})
     if (confirm("Thank you for the feedback! Exit tab?")) {
         exitTab()
     }
@@ -55,15 +53,22 @@ function onError(message) {
 }
 
 function getFeedbackData() {
-    let data = { data: {}, discord: { title: "Feedback", fields: [] } }
-    for (let id of fieldIds) {
-        data.data[id] = $("#"+id).val()
-        data.discord.fields.push({
-            label: $("label[for='"+id+"'").html(),
-            value: $("#"+id).val()
-        })
+    return {
+        data: {
+            issue: $("#issue").val(),
+        },
+        discord: {
+            title: "Bug Report",
+            color: "16720990",
+            fields: [
+                {
+                    label: $("label[for='issue'").html(),
+                    value: $("#issue").val(),
+                }
+            ]
+
+        }
     }
-    return data
 }
 
 function exitTab() {

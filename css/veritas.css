@@ -91,15 +91,6 @@ button:disabled {
   color: #aaaaaa;
 }
 
-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  align-items: flex-end;
-  font-size: 16px;
-}
-
 .logo {
   display: flex;
   align-items: center;
@@ -109,6 +100,10 @@ footer {
   opacity: 0.85;
   cursor: pointer;
   transition: opacity 0.2s;
+}
+
+.icon svg {
+  fill: #ffffffe0;
 }
 
 .logo-icon {
@@ -166,8 +161,19 @@ footer {
   }
 }
 
+footer, .flex-container {
+  display: flex;
+  align-items: flex-end;
+}
 
-.footer-left {
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  font-size: 16px;
+}
+
+.footer-left, .flex-left {
   display: flex;
   flex-wrap: wrap;
   flex: 1;
@@ -175,7 +181,7 @@ footer {
   padding: 20px;
 }
 
-.footer-right {
+.footer-right, .flex-right {
   display: flex;
   justify-content: flex-end;
   padding: 20px;

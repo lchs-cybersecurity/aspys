@@ -1,5 +1,7 @@
 function verifyEmail() {
-    chrome.storage.sync.get(['domains', 'whitelist'], function(data) {
+    chrome.storage.sync.get(['domains', 'whitelist', 'feedback_countdown', 'sent_feedback'], function(data) {
+
+        askFeedbackMaybe(data['sent_feedback'], data['feedback_countdown'])
 
         let icons = getElementsByClass("aCi")
         for (let $iconElement of icons) {
@@ -41,6 +43,47 @@ function verifyEmail() {
             }
         }
     })
+}
+
+
+function askFeedbackMaybe(alreadySent, countdown) {
+    if (!alreadySent) {
+        if (countdown <= 0) {
+            askFeedback()
+        } else {
+            chrome.storage.sync.set({"feedback_countdown": countdown-1})
+        }
+    }
+}
+
+function askFeedback() {
+    $(document.body).append(`
+    <div class="veritas-feedback" id="veritas-feedback">
+        <div class="veritas-icon"></div>
+        <span>Greetings from LC Cybersecurity Club! You've been using Veritas for a while. Would you kindly like to give us feedback?</span>
+        </br>
+        <div class="veritas-buttons">
+            <button id="veritas-feedback-yes">Sure!</button>
+            <button id="veritas-feedback-no">Later...</button>
+        </div>
+    </div>
+    `)
+    $("#veritas-feedback-yes").click(function() {
+        openFeedback()
+        chrome.storage.sync.set({"feedback_countdown": 30})
+        hideFeedbackRequest()
+    })
+    $("#veritas-feedback-no").click(function() {
+        chrome.storage.sync.set({"feedback_countdown": 30})
+        hideFeedbackRequest()
+    })
+}
+
+function hideFeedbackRequest() {
+    let $feedback = $("#veritas-feedback")
+    if ($feedback) {
+        $feedback.css("display", "none")
+    }
 }
 
 function getElementsByClass(className) {
@@ -94,6 +137,12 @@ function openReport($emailElement) {
     chrome.runtime.sendMessage({
         action: "open-report",
         encodedData: encodeEmailData($emailElement)
+    })
+}
+
+function openFeedback() {
+    chrome.runtime.sendMessage({
+        action: "open-feedback"
     })
 }
 
