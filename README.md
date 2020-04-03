@@ -8,9 +8,9 @@
 --------
 
 ## Features
-* Indicates whether sender's email address is from a verified domain.
-* Easy to report suspicious emails.
-* Manage email reports
-
-## To-do
-* create about/instructions page
+* Email domain verification (Gmail)
+    * Indicates whether sender's email address is from a verified domain.
+    * Easy to report suspicious emails.
+    * Manage email reports
+* Site credibility indicator
+    * Visible badge icon indication

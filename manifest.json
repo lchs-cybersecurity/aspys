@@ -5,6 +5,7 @@
 	"manifest_version": 2,
 	"permissions": [
 		"https://mail.google.com/mail/*",
+		"https://openpagerank.com/api/*",
 		"alarms",
 		"tabs",
 		"storage"
@@ -23,6 +24,9 @@
 	}],
 	"background": {
 		"scripts": [
+			"config.js",
+			"js/lib/jquery.min.js",
+			"js/sitechecker.js",
 			"js/background.js"
 		]
 	},

@@ -19,5 +19,22 @@ chrome.runtime.onMessage.addListener(
             chrome.tabs.create({url:`../html/report.html?${request.encodedData}`})
         } else if (request.action == "open-feedback") {
             chrome.tabs.create({url:`../html/feedback.html`})
+        } else if (request.action == "open-info") {
+            chrome.tabs.create({url:config['host']+config['info-page']})
+        } else if (request.action == "site-analysis") {
+            sendResponse(siteChecker)
         }
 });
+
+chrome.tabs.onActivated.addListener(function(info) {
+    chrome.tabs.get(info.tabId, function (tab) {
+        siteChecker.update(tab)
+    });
+});
+
+chrome.tabs.onUpdated.addListener(function (id, info, tab) {
+    if (info.status == 'complete') {
+        siteChecker.update(tab)
+    }
+});
+
