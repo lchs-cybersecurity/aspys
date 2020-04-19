@@ -1,5 +1,5 @@
 var config = {
-    "host": "http://0.0.0.0:8000/",
+    "host": "http://127.0.0.1:8080/",
     "post-report": "api/report",
     "post-feedback": "api/feedback",
     "post-bug": "api/bug",
