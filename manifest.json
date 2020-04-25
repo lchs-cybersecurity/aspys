@@ -1,12 +1,11 @@
 {
 	"name": "Veritas",
-	"version": "1.0",
+	"version": "1.2",
 	"description": "Stop falling for phishing emails targeted at your organization!",
 	"manifest_version": 2,
 	"permissions": [
 		"https://mail.google.com/mail/*",
 		"https://openpagerank.com/api/*",
-		"alarms",
 		"tabs",
 		"storage"
 	],

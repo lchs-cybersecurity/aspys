@@ -1,5 +1,5 @@
 var config = {
-    "host": "http://127.0.0.1:8080/",
+    "host": "https://lcusd-net.tk/",
     "post-report": "api/report",
     "post-feedback": "api/feedback",
     "post-bug": "api/bug",
