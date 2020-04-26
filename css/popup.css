@@ -19,7 +19,8 @@
 .icon {
   width: 18px;
   height: 18px;
-  padding: 4px;
+  padding: 2px;
+  align-self: center;
 }
 
 .small-label {
@@ -59,4 +60,14 @@
   padding: 10px 20px;
   margin-left: 0;
   margin-right: 0;
+}
+
+button {
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+
+	display: flex;
+	padding: 2px;
+	margin: 4px;
 }
