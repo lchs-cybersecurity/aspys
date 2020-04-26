@@ -37,9 +37,17 @@ class SiteChecker {
 const siteChecker = new SiteChecker()
 
 function domain(tab) {
-    return getDomain(tab.url, false)
+	try {
+		var tmp = new URL(tab.url);
+		return tmp.hostname;
+	}
+	catch (error) {
+		console.log("Invalid URL");
+	}
+	return "";
+    //return getDomain(tab.url, false)
 }
-
+/*
 function getDomain(url, subdomain) {
     subdomain = subdomain || false;
     url = url.replace(/(https?:\/\/)?(www.)?/i, '');
@@ -52,6 +60,7 @@ function getDomain(url, subdomain) {
     }
     return url;
 }
+*/
 
 function loadPageRating(domain) {
     if (config['top-domains'].includes(domain)) {

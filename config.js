@@ -11,5 +11,7 @@ var config = {
         "wikipedia.org",
         "facebook.com",
         "amazon.com"
-    ]
+    ],
+	"openpagerank-api-key":"c0000oo0kcsso8gog8skcsssskwokw808sg4ccoc"
 }
+//Derek (derek.l.jiang@gmail.com)'s API key
