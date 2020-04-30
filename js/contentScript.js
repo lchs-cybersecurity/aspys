@@ -1,47 +1,97 @@
+var config = {
+    "host": "https://127.0.0.1:8000/",
+    "post-report": "api/report",
+    "post-feedback": "api/feedback",
+    "post-bug": "api/bug", 
+    "get-blacklist": "api/get_blacklist", 
+    "info-page": "info",
+    "chrome-webstore-link": "https://http.cat/404",
+    "top-domains": [
+        "google.com",
+        "youtube.com",
+        "wikipedia.org",
+        "facebook.com",
+        "amazon.com"
+    ],
+	"openpagerank-api-key":"c0000oo0kcsso8gog8skcsssskwokw808sg4ccoc"
+  //Derek (derek.l.jiang@gmail.com)'s API key
+} 
+
+function changeElements(data) {
+    console.log(data); 
+    
+    let icons = getElementsByClass("aCi"); 
+
+    for (let $iconElement of icons) {
+        let alreadyChecked = $iconElement.hasClass('verified') || $iconElement.hasClass('unverified') || $iconElement.hasClass('blacklisted'); 
+        if (alreadyChecked) continue 
+        let emailAddress = getEmail($iconElement.parent().parent())
+        let vStatus = checkIfVerifiedEmail(emailAddress, data)
+        if (vStatus == 'v') {
+            $iconElement.addClass('verified'); 
+        } else if (vStatus == 'b') {
+            $iconElement.addClass('blacklisted'); 
+        } else {
+            $iconElement.addClass('unverified'); 
+        }
+    } 
+
+    let expanded = getElementsByClass("adn"); 
+
+    for (let $emailElement of expanded) {
+        let $iconElement = getIconElement($emailElement)
+
+        if ($iconElement.hasClass('unverified')) {
+            let $report = $('<button class="gmail-button report">Report</button>')
+            let $whitelist= $('<button class="gmail-button whitelist">Whitelist</button>')
+            let $nameElement = getNameElement($emailElement)
+            $nameElement.not(":has(button.report)").append($report)
+            $nameElement.not(":has(button.whitelist)").append($whitelist)
+
+            $iconElement.click(function(event) {
+                event.stopPropagation()
+                openReport($emailElement)
+            })
+            $report.click(function(event) {
+                event.stopPropagation()
+                openReport($emailElement)
+                console.log($emailElement)
+            })
+            $whitelist.click(function(event) {
+                event.stopPropagation()
+                whitelist($emailElement)
+            })
+        }
+    }
+}
+
 function verifyEmail() {
     chrome.storage.sync.get(['domains', 'whitelist', 'feedback_countdown', 'sent_feedback'], function(data) {
 
         askFeedbackMaybe(data['sent_feedback'], data['feedback_countdown'])
 
-        let icons = getElementsByClass("aCi")
-        for (let $iconElement of icons) {
-            let alreadyChecked = $iconElement.hasClass('verified') || $iconElement.hasClass('unverified')
-            if (alreadyChecked) continue 
-            let emailAddress = getEmail($iconElement.parent().parent())
-            let isVerified = checkIfVerifiedEmail(emailAddress, data)
-            if (isVerified) {
-                $iconElement.addClass('verified')
-            } else {
-                $iconElement.addClass('unverified')
-            }
-        } 
+        let request = $.ajax({
+            type: "GET",
+            url: config['host'] + config['get-blacklist'], 
+            dataType: "json", 
+        }); 
+    
+        request.done(function(msg) {
+            console.log(msg); 
 
-        let expanded = getElementsByClass("adn")
-        for (let $emailElement of expanded) {
-            let $iconElement = getIconElement($emailElement)
+            data['blacklist'] = msg.data; 
 
-            if ($iconElement.hasClass('unverified')) {
-                let $report = $('<button class="gmail-button report">Report</button>')
-                let $whitelist= $('<button class="gmail-button whitelist">Whitelist</button>')
-                let $nameElement = getNameElement($emailElement)
-                $nameElement.not(":has(button.report)").append($report)
-                $nameElement.not(":has(button.whitelist)").append($whitelist)
+            changeElements(data); 
+        }); 
 
-                $iconElement.click(function(event) {
-                    event.stopPropagation()
-                    openReport($emailElement)
-                })
-                $report.click(function(event) {
-                    event.stopPropagation()
-                    openReport($emailElement)
-                    console.log($emailElement)
-                })
-                $whitelist.click(function(event) {
-                    event.stopPropagation()
-                    whitelist($emailElement)
-                })
-            }
-        }
+        request.fail(function( jqXHR, textStatus ) {
+            console.log(jqXHR); 
+            console.log(textStatus); 
+
+            data['blacklist'] = []; 
+
+            changeElements(data); 
+        })
     })
 }
 
@@ -112,17 +162,23 @@ function getUserEmail() {
 }
 
 function checkIfVerifiedEmail(emailAddress, data) {
+    for (let b of data['blacklist']) {
+        if (emailAddress == b) {
+            return 'b'; 
+        }
+    } 
+
     for (let w of data['whitelist']) {
         if (emailAddress == w) {
-            return true
+            return 'v'; 
         }
     }
     for (let d of data['domains']) {
         if (emailAddress.endsWith('@'+d)) {
-            return true
+            return 'v'; 
         }
     }
-    return false
+    return 'u'; 
 }
 
 function encodeEmailData($emailElement) {
