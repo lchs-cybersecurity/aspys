@@ -5,7 +5,7 @@
     right: -4px;
     height: 16px;
     width: 16px;
-    background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/veritas/master/assets/check.png");
+    background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/veritas-assets/master/check.png");
     background-size: 16px;
     background-repeat: no-repeat;
 }
@@ -18,7 +18,7 @@
     height: 16px;
     width: 16px;
     background-size: 16px;
-    background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/veritas/master/assets/alert.png");
+    background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/veritas-assets/master/alert.png");
     z-index: 999;
     cursor: pointer;
 }
