@@ -1,5 +1,5 @@
 var config = {
-    "host": "https://127.0.0.1:8000/",
+    "host": "https://lcusd-net.tk/",
     "post-report": "api/report",
     "post-feedback": "api/feedback",
     "post-bug": "api/bug", 
@@ -13,13 +13,13 @@ var config = {
         "facebook.com",
         "amazon.com"
     ],
-	"openpagerank-api-key":"c0000oo0kcsso8gog8skcsssskwokw808sg4ccoc"
-  //Derek (derek.l.jiang@gmail.com)'s API key
-} 
+    "openpagerank-api-key":"c0000oo0kcsso8gog8skcsssskwokw808sg4ccoc"
+    //Derek (derek.l.jiang@gmail.com)'s API key
+}  
 
 function changeElements(data) {
     console.log(data); 
-    
+
     let icons = getElementsByClass("aCi"); 
 
     for (let $iconElement of icons) {
