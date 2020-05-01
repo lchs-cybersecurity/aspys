@@ -1,4 +1,4 @@
-.verified::after {
+.user-verified::after, .domain-verified::after {
     content: "";
     position: absolute;
     bottom: 0;

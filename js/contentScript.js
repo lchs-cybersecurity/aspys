@@ -17,7 +17,8 @@ var config = {
     //Derek (derek.l.jiang@gmail.com)'s API key
 }  
 
-const classes = ['blacklisted', 'unverified', 'verified']; 
+const vStatuses = ['b', 'u', 'uv', 'dv']; 
+const classes = ['blacklisted', 'unverified', 'user-verified', 'domain-verified']; 
 
 function addVClass($iconElement, data) { // adds the correct class based on verification status
     let emailAddress = getEmail($iconElement.parent().parent())
@@ -25,12 +26,14 @@ function addVClass($iconElement, data) { // adds the correct class based on veri
 
     $iconElement.removeClass(classes); // clears the verification classes on the element
     
-    if (vStatus == 'v') {
-        $iconElement.addClass('verified'); 
-    } else if (vStatus == 'b') {
-        $iconElement.addClass('blacklisted'); 
+    if (vStatus == vStatuses[2]) {
+        $iconElement.addClass(classes[2]); 
+    } else if (vStatus == vStatuses[3]) {
+        $iconElement.addClass(classes[3]); 
+    } else if (vStatus == vStatuses[0]) {
+        $iconElement.addClass(classes[0]); 
     } else {
-        $iconElement.addClass('unverified'); 
+        $iconElement.addClass(classes[1]); 
     } 
 } 
 
@@ -52,7 +55,7 @@ function unverifiedButtons($emailElement, $iconElement, $nameElement) { // the b
     })
 } 
 
-function verifiedButtons($emailElement, $iconElement, $nameElement) { // the buttons to be put on a verified email
+function userVerifiedButtons($emailElement, $iconElement, $nameElement) { // the buttons to be put on a verified email
     let $unwhitelist = $('<button class="gmail-button unwhitelist">Unwhitelist</button>'); 
 
     $nameElement.append($unwhitelist); 
@@ -72,10 +75,10 @@ function placeButtons() { // adds the appropriate buttons
         let $iconElement = getIconElement($emailElement); 
         let $nameElement = getNameElement($emailElement); 
 
-        if ($iconElement.hasClass('unverified')) {
+        if ($iconElement.hasClass(classes[1])) {
             unverifiedButtons($emailElement, $iconElement, $nameElement); 
-        } else if ($iconElement.hasClass('verified')) {
-            verifiedButtons($emailElement, $iconElement, $nameElement); 
+        } else if ($iconElement.hasClass(classes[2])) {
+            userVerifiedButtons($emailElement, $iconElement, $nameElement); 
         }
     } 
 }
@@ -191,21 +194,21 @@ function getUserEmail() {
 function checkIfVerifiedEmail(emailAddress, data) {
     for (let b of data['blacklist']) {
         if (emailAddress == b) {
-            return 'b'; 
+            return vStatuses[0]; 
         }
     } 
 
     for (let w of data['whitelist']) {
         if (emailAddress == w) {
-            return 'v'; 
+            return vStatuses[2]; 
         }
     }
     for (let d of data['domains']) {
         if (emailAddress.endsWith('@'+d)) {
-            return 'v'; 
+            return vStatuses[3]; 
         }
     }
-    return 'u'; 
+    return vStatuses[1]; 
 }
 
 function encodeEmailData($emailElement) {
