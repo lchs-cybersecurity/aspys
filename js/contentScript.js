@@ -17,52 +17,79 @@ var config = {
     //Derek (derek.l.jiang@gmail.com)'s API key
 }  
 
+const classes = ['blacklisted', 'unverified', 'verified']; 
+
+function addVClass($iconElement, data) { // adds the correct class based on verification status
+    let emailAddress = getEmail($iconElement.parent().parent())
+    let vStatus = checkIfVerifiedEmail(emailAddress, data); 
+
+    $iconElement.removeClass(classes); // clears the verification classes on the element
+    
+    if (vStatus == 'v') {
+        $iconElement.addClass('verified'); 
+    } else if (vStatus == 'b') {
+        $iconElement.addClass('blacklisted'); 
+    } else {
+        $iconElement.addClass('unverified'); 
+    } 
+} 
+
+function unverifiedButtons($emailElement, $iconElement, $nameElement) { // the buttons to be put on a neutral email
+    let $report = $('<button class="gmail-button report">Report</button>')
+    let $whitelist= $('<button class="gmail-button whitelist">Whitelist</button>'); 
+    
+    $nameElement.append($report)
+    $nameElement.append($whitelist)
+
+    $report.click(function(event) {
+        event.stopPropagation()
+        openReport($emailElement)
+        console.log($emailElement)
+    })
+    $whitelist.click(function(event) {
+        event.stopPropagation()
+        whitelist($emailElement)
+    })
+} 
+
+function verifiedButtons($emailElement, $iconElement, $nameElement) { // the buttons to be put on a verified email
+    let $unwhitelist = $('<button class="gmail-button unwhitelist">Unwhitelist</button>'); 
+
+    $nameElement.append($unwhitelist); 
+
+    $unwhitelist.click(function(event) {
+        event.stopPropagation()
+        unwhitelist($emailElement)
+    })
+} 
+
+function placeButtons() { // adds the appropriate buttons
+    let expanded = getElementsByClass("adn"); 
+
+    $('button.gmail-button').remove(); // removes all the previous buttons added
+
+    for (let $emailElement of expanded) {
+        let $iconElement = getIconElement($emailElement); 
+        let $nameElement = getNameElement($emailElement); 
+
+        if ($iconElement.hasClass('unverified')) {
+            unverifiedButtons($emailElement, $iconElement, $nameElement); 
+        } else if ($iconElement.hasClass('verified')) {
+            verifiedButtons($emailElement, $iconElement, $nameElement); 
+        }
+    } 
+}
+
 function changeElements(data) {
     console.log(data); 
 
     let icons = getElementsByClass("aCi"); 
 
     for (let $iconElement of icons) {
-        let alreadyChecked = $iconElement.hasClass('verified') || $iconElement.hasClass('unverified') || $iconElement.hasClass('blacklisted'); 
-        if (alreadyChecked) continue 
-        let emailAddress = getEmail($iconElement.parent().parent())
-        let vStatus = checkIfVerifiedEmail(emailAddress, data)
-        if (vStatus == 'v') {
-            $iconElement.addClass('verified'); 
-        } else if (vStatus == 'b') {
-            $iconElement.addClass('blacklisted'); 
-        } else {
-            $iconElement.addClass('unverified'); 
-        }
+        addVClass($iconElement, data); 
     } 
 
-    let expanded = getElementsByClass("adn"); 
-
-    for (let $emailElement of expanded) {
-        let $iconElement = getIconElement($emailElement)
-
-        if ($iconElement.hasClass('unverified')) {
-            let $report = $('<button class="gmail-button report">Report</button>')
-            let $whitelist= $('<button class="gmail-button whitelist">Whitelist</button>')
-            let $nameElement = getNameElement($emailElement)
-            $nameElement.not(":has(button.report)").append($report)
-            $nameElement.not(":has(button.whitelist)").append($whitelist)
-
-            $iconElement.click(function(event) {
-                event.stopPropagation()
-                openReport($emailElement)
-            })
-            $report.click(function(event) {
-                event.stopPropagation()
-                openReport($emailElement)
-                console.log($emailElement)
-            })
-            $whitelist.click(function(event) {
-                event.stopPropagation()
-                whitelist($emailElement)
-            })
-        }
-    }
+    placeButtons(); 
 }
 
 function verifyEmail() {
@@ -208,34 +235,32 @@ function whitelist($emailElement) {
     chrome.storage.sync.get('whitelist', function(data) {
         let whitelist = data['whitelist']
 
-        if ($whitelist.html() == "Whitelist") {
-            if (!whitelist.includes(emailAddress) && emailAddress.length > 3) {
-                whitelist.push(emailAddress)
-                chrome.storage.sync.set({'whitelist':whitelist}, function() {
-                    let list = getElementsByClass('unverified')
-                    for (let element of list) {
-                        element.removeClass('unverified')
-                    }
-                    verifyEmail()
-                })
-            }
-            $whitelist.html('Unwhitelist')
-        } else if ($whitelist.html() == "Unwhitelist") {
-            for (let i = whitelist.length - 1; i >= 0; i--) {
-                if (whitelist[i] === emailAddress) {
-                    whitelist.splice(i, 1);
-                }
-                chrome.storage.sync.set({'whitelist':whitelist}, function() {
-                    let list = getElementsByClass('verified')
-                    for (let element of list) {
-                        element.removeClass('verified')
-                    }
-                    verifyEmail()
-                })
-            }
-            $whitelist.html('Whitelist')
-        }
-    })
+        if (!whitelist.includes(emailAddress) && emailAddress.length > 3) {
+            whitelist.push(emailAddress); 
+
+            chrome.storage.sync.set({'whitelist': whitelist}, function() {
+                verifyEmail()
+            }); 
+        } 
+    }); 
+} 
+
+function unwhitelist($emailElement) {
+    let emailAddress = getEmail($emailElement)
+    let $unwhitelist = $emailElement.find('button.unwhitelist')
+    chrome.storage.sync.get('whitelist', function(data) {
+        let whitelist = data['whitelist']
+
+        for (let i = whitelist.length - 1; i >= 0; i--) {
+            if (whitelist[i] === emailAddress) {
+                whitelist.splice(i, 1);
+            } 
+
+            chrome.storage.sync.set({'whitelist': whitelist}, function() {
+                verifyEmail()
+            }); 
+        } 
+    }); 
 }
 
 function checkNodesThenVerify(mutationsList) {

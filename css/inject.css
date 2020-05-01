@@ -7,7 +7,7 @@
     width: 16px;
     background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/veritas-assets/master/check.png");
     background-size: 16px;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; 
 }
 
 .unverified::after {
@@ -18,9 +18,20 @@
     height: 16px;
     width: 16px;
     background-size: 16px;
+    background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/veritas-assets/master/question-mark.png");
+    background-repeat: no-repeat; 
+} 
+
+.blacklisted::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: -4px;
+    height: 16px;
+    width: 16px;
+    background-size: 16px;
     background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/veritas-assets/master/alert.png");
-    z-index: 999;
-    cursor: pointer;
+    background-repeat: no-repeat; 
 }
 
 .gmail-button {
@@ -43,7 +54,7 @@
 .gmail-button.report {
     background-color: #e40000;
 }
-.gmail-button.whitelist {
+.gmail-button.whitelist, .gmail-button.unwhitelist {
     background-color: #222222;
 }
 
