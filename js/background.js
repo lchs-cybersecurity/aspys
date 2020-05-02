@@ -3,7 +3,7 @@ function openSetup() {
 }
 
 function setDefaultSettings() {
-    chrome.storage.sync.set({domains:[], whitelist:[], feedback_countdown:30, sent_feedback:false})
+    chrome.storage.sync.set({domains:['lcusd.net', 'mylcusd.net'], whitelist:[], feedback_countdown:30, sent_feedback:false})
 }
 
 chrome.runtime.onInstalled.addListener(function (info) {
