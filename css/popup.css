@@ -19,12 +19,12 @@
 .icon {
   width: 18px;
   height: 18px;
-  padding: 2px;
-  align-self: center;
+  padding: 6px;
+  align-self: right;
 }
 
 .small-label {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 #domain {
@@ -63,11 +63,11 @@
 }
 
 button {
-	width: 100%;
+	width: 95%;
 	align-items: center;
-	justify-content: center;
+	justify-content: left;
 
 	display: flex;
 	padding: 2px;
-	margin: 4px;
+	margin: 8px 4px;
 }
