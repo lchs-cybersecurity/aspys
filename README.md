@@ -7,10 +7,16 @@
 
 --------
 
-## Features
+Features
+===
 * Email domain verification (Gmail)
     * Indicates whether sender's email address is from a verified domain.
     * Easy to report suspicious emails.
     * Manage email reports
 * Site credibility indicator
     * Visible badge icon indication
+
+Dev/Testing Setup
+===
+1. `cp config.example.js config.js`
+2. "Load unpacked" in Chrome (select project root directory)
