@@ -18,5 +18,5 @@ Features
 
 Dev/Testing Setup
 ===
-1. `cp config.example.json config.json`
+1. `cp config.example.js config.js`
 2. "Load unpacked" in Chrome (select project root directory)
