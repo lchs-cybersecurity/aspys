@@ -22,13 +22,13 @@
 
       <form id="mail-form">
         <ul class="fields">
-          <li>
+          <div hidden><li>
             <label for="sender"><strong>Re:</strong> Suspicious Sender</label>
             <input type=text name="reportee" id="reportee" placeholder="suspicious@mail.com" readonly></input>
-          </li>
+          </li></div>
           <li>
-            <label for="user"><strong>From:</strong> Responsible Reporter</label>
-            <input type=text name="reporter" id="reporter" placeholder="your@mail.com" readonly></input>
+            <label for="user"><strong>From:</strong> Reporter</label>
+            <input type=text name="reporter" id="reporter" placeholder="your@mail.com"></input>
           </li>
           <!-- Temporary hide for alpha release -->
           <li style="display: none;">
