@@ -103,7 +103,7 @@
     border: none;
 }
 
-#veritas-feedback-no {
+.veritas-feedback-no {
     background: linear-gradient(135deg, #397d5d 0%, #385e66 100%);
 }
 

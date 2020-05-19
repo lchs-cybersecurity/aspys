@@ -137,33 +137,33 @@ function askFeedbackMaybe(alreadySent, countdown) {
 }
 
 function askFeedback() {
-    $(document.body).append(`
-    <div class="veritas-feedback" id="veritas-feedback">
-        <div class="veritas-icon"></div>
-        <span>Greetings from LC Cybersecurity Club! You've been using Veritas for a while. Would you kindly like to give us feedback?</span>
-        </br>
-        <div class="veritas-buttons">
-            <button id="veritas-feedback-yes">Sure!</button>
-            <button id="veritas-feedback-no">Later...</button>
+    if (!$('.veritas-feedback').length) {
+        $(document.body).append(`
+        <div class="veritas-feedback">
+            <div class="veritas-icon"></div>
+            <span>Greetings from LC Cybersecurity Club! You've been using Veritas for a while. Would you kindly like to give us feedback?</span>
+            </br>
+            <div class="veritas-buttons">
+                <button class="veritas-feedback-yes">Sure!</button>
+                <button class="veritas-feedback-no">Later...</button>
+            </div>
         </div>
-    </div>
-    `)
-    $("#veritas-feedback-yes").click(function() {
-        openFeedback()
-        chrome.storage.sync.set({"feedback_countdown": 30})
-        hideFeedbackRequest()
-    })
-    $("#veritas-feedback-no").click(function() {
-        chrome.storage.sync.set({"feedback_countdown": 30})
-        hideFeedbackRequest()
-    })
+        `); 
+    
+        $(".veritas-feedback-yes").click(function() {
+            openFeedback()
+            chrome.storage.sync.set({"feedback_countdown": 30})
+            hideFeedbackRequest()
+        }); 
+        $(".veritas-feedback-no").click(function() {
+            chrome.storage.sync.set({"feedback_countdown": 30})
+            hideFeedbackRequest()
+        }); 
+    } 
 }
 
 function hideFeedbackRequest() {
-    let $feedback = $("#veritas-feedback")
-    if ($feedback) {
-        $feedback.css("display", "none")
-    }
+    $('.veritas-feedback').remove(); 
 }
 
 function getElementsByClass(className) {
