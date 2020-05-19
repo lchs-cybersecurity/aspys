@@ -1,5 +1,6 @@
 var config = {
-    "host": "https://lcusd-net.tk/",
+    "org_id": "",
+    "host": "https://veritas.computer/",
     "post-report": "api/report",
     "post-feedback": "api/feedback",
     "post-bug": "api/bug", 
