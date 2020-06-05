@@ -1,5 +1,5 @@
 var config = {
-    "host": "http://127.0.0.1:8000/",
+    "host": "http://veritas.computer/",
     "post-report": "api/report",
     "post-feedback": "api/feedback",
     "post-bug": "api/bug", 
