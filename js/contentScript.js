@@ -1,9 +1,10 @@
 var config = {
-    "host": "https://lcusd-net.tk/",
+    "host": "http://127.0.0.1:8000/",
     "post-report": "api/report",
     "post-feedback": "api/feedback",
     "post-bug": "api/bug", 
-    "get-blacklist": "api/get_blacklist", 
+    "get-blacklist": "api/blacklist", 
+    "get-org": "api/get_org", 
     "info-page": "info",
     "chrome-webstore-link": "https://http.cat/404",
     "top-domains": [
@@ -13,9 +14,9 @@ var config = {
         "facebook.com",
         "amazon.com"
     ],
-    "openpagerank-api-key":"c0000oo0kcsso8gog8skcsssskwokw808sg4ccoc"
+    "openpagerank-api-key":"c0000oo0kcsso8gog8skcsssskwokw808sg4ccoc", 
     //Derek (derek.l.jiang@gmail.com)'s API key
-}  
+} 
 
 const vStatuses = ['b', 'u', 'uv', 'dv']; 
 const classes = ['blacklisted', 'unverified', 'user-verified', 'domain-verified']; 
@@ -96,7 +97,7 @@ function changeElements(data) {
 }
 
 function verifyEmail() {
-    chrome.storage.sync.get(['domains', 'whitelist', 'feedback_countdown', 'sent_feedback'], function(data) {
+    chrome.storage.sync.get(['domains', 'whitelist', 'feedback_countdown', 'sent_feedback', 'org_id'], function(data) {
 
         askFeedbackMaybe(data['sent_feedback'], data['feedback_countdown'])
 
@@ -104,6 +105,9 @@ function verifyEmail() {
             type: "GET",
             url: config['host'] + config['get-blacklist'], 
             dataType: "json", 
+            data: {
+                org_id: data.org_id, 
+            }, 
         }); 
     
         request.done(function(msg) {

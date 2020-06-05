@@ -1,9 +1,64 @@
+var config = {
+    "host": "http://127.0.0.1:8000/",
+    "post-report": "api/report",
+    "post-feedback": "api/feedback",
+    "post-bug": "api/bug", 
+    "get-blacklist": "api/blacklist", 
+    "get-org": "api/get_org", 
+    "info-page": "info",
+    "chrome-webstore-link": "https://http.cat/404",
+    "top-domains": [
+        "google.com",
+        "youtube.com",
+        "wikipedia.org",
+        "facebook.com",
+        "amazon.com"
+    ],
+    "openpagerank-api-key":"c0000oo0kcsso8gog8skcsssskwokw808sg4ccoc", 
+    //Derek (derek.l.jiang@gmail.com)'s API key
+} 
+
 function openSetup() {
     chrome.tabs.create({url: chrome.extension.getURL('../html/welcome.html')})
-}
+} 
 
 function setDefaultSettings() {
-    chrome.storage.sync.set({domains:['lcusd.net', 'mylcusd.net'], whitelist:[], feedback_countdown:30, sent_feedback:false})
+    chrome.identity.getProfileUserInfo(function(userInfo) {
+        const address = userInfo.email; 
+
+        let request = $.ajax({
+            type: "GET",
+            url: config['host'] + config['get-org'], 
+            contentType: 'application/json', 
+            dataType: "json", 
+            data: {
+                address: address, 
+            }, 
+        }); 
+
+        let org_id; 
+    
+        request.done(function(msg) {
+            console.log(msg); 
+
+            org_id = msg.ID
+
+            writeDefault(org_id); 
+        }); 
+    
+        request.fail(function( jqXHR, textStatus ) {
+            console.log(jqXHR); 
+            console.log(textStatus); 
+    
+            org_id = ""; 
+
+            writeDefault(org_id); 
+        }); 
+    }); 
+}
+
+function writeDefault(org_id) {
+    chrome.storage.sync.set({domains:['lcusd.net', 'mylcusd.net'], whitelist:[], feedback_countdown:30, sent_feedback:false, org_id: org_id,})
 }
 
 chrome.runtime.onInstalled.addListener(function (info) {
