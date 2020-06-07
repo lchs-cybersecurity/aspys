@@ -1,3 +1,5 @@
+let org_id; 
+
 function getUrlVars() {
     let vars = {}
     let regex = /[?&]+([^=&]+)=([^&]*)/gi
@@ -14,7 +16,9 @@ $(document).ready(function() {
     $('#contents').append($($.parseHTML(urlData['contents'])))
     chrome.storage.sync.get('report-to', function(storageData) {
         $('#receiver').val(storageData['report-to'])
-    })
+    }) 
+
+    org_id = urlData.org_id; 
 })
 
 $('#send').click(function() {
@@ -77,8 +81,9 @@ function getReportData() {
             reporter: $('#reporter').val(),
             receiver: $('#receiver').val(),
             note: $('#note').val(),
-            body: $('#contents').prop('outerHTML')
-        }
+            body: $('#contents').prop('outerHTML'), 
+        }, 
+        org_id: org_id, 
     }
 }
 

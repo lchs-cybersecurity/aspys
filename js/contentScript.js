@@ -38,7 +38,7 @@ function addVClass($iconElement, data) { // adds the correct class based on veri
     } 
 } 
 
-function unverifiedButtons($emailElement, $iconElement, $nameElement) { // the buttons to be put on a neutral email
+function unverifiedButtons($emailElement, $iconElement, $nameElement, data) { // the buttons to be put on a neutral email
     let $report = $('<button class="gmail-button report">Report</button>')
     let $whitelist= $('<button class="gmail-button whitelist">Whitelist</button>'); 
     
@@ -47,7 +47,7 @@ function unverifiedButtons($emailElement, $iconElement, $nameElement) { // the b
 
     $report.click(function(event) {
         event.stopPropagation()
-        openReport($emailElement)
+        openReport($emailElement, data)
         console.log($emailElement)
     })
     $whitelist.click(function(event) {
@@ -67,7 +67,7 @@ function userVerifiedButtons($emailElement, $iconElement, $nameElement) { // the
     })
 } 
 
-function placeButtons() { // adds the appropriate buttons
+function placeButtons(data) { // adds the appropriate buttons
     let expanded = getElementsByClass("adn"); 
 
     $('button.gmail-button').remove(); // removes all the previous buttons added
@@ -77,7 +77,7 @@ function placeButtons() { // adds the appropriate buttons
         let $nameElement = getNameElement($emailElement); 
 
         if ($iconElement.hasClass(classes[1])) {
-            unverifiedButtons($emailElement, $iconElement, $nameElement); 
+            unverifiedButtons($emailElement, $iconElement, $nameElement, data); 
         } else if ($iconElement.hasClass(classes[2])) {
             userVerifiedButtons($emailElement, $iconElement, $nameElement); 
         }
@@ -93,7 +93,7 @@ function changeElements(data) {
         addVClass($iconElement, data); 
     } 
 
-    placeButtons(); 
+    placeButtons(data); 
 }
 
 function verifyEmail() {
@@ -215,18 +215,19 @@ function checkIfVerifiedEmail(emailAddress, data) {
     return vStatuses[1]; 
 }
 
-function encodeEmailData($emailElement) {
+function encodeEmailData($emailElement, data) {
     return jQuery.param({
         reporter:getUserEmail(),
         reportee:getEmail($emailElement),
-        contents:getContents($emailElement)
+        contents:getContents($emailElement), 
+        org_id: data.org_id, 
     })
 }
 
-function openReport($emailElement) {
+function openReport($emailElement, data) {
     chrome.runtime.sendMessage({
         action: "open-report",
-        encodedData: encodeEmailData($emailElement)
+        encodedData: encodeEmailData($emailElement, data)
     })
 }
 
