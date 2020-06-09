@@ -16,7 +16,8 @@
 		"matches": ["https://mail.google.com/mail/*"],
 		"js": [
 			"js/lib/jquery.min.js",
-			"js/contentScript.js"
+			"js/contentScript.js", 
+			"config.js" 
 		],
 		"css": [
 			"css/inject.css"
