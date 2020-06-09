@@ -1,11 +1,11 @@
 var config = {
-    "org_id": "",
     "host": "https://veritas.computer/",
     "post-report": "api/report",
     "post-feedback": "api/feedback",
     "post-bug": "api/bug", 
     "get-blacklist": "api/get_blacklist", 
     "info-page": "info",
+    "get-org": "api/get_org", 
     "chrome-webstore-link": "https://http.cat/404",
     "top-domains": [
         "google.com",
