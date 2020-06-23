@@ -172,7 +172,7 @@ function getContents($emailElement) {
     return $emailElement.find('div.a3s').prop('outerHTML')
 }
 function getUserEmail() {
-    return $(document).find('div.gb_qb').prop('innerHTML')
+    return $(document).find('div.gb_tb').prop('innerHTML')
 }
 
 function checkIfVerifiedEmail(emailAddress, data) {
