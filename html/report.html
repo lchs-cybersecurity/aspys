@@ -18,17 +18,17 @@
     </header>
 
     <div class="contents">
-      <h1>Report an email</h1>
+      <h1>Report a Suspicious Email</h1>
 
       <form id="mail-form">
         <ul class="fields">
-          <div hidden><li>
-            <label for="sender"><strong>Re:</strong> Suspicious Sender</label>
+          <div><li>
+            <label for="reportee">Reported Sender</label>
             <input type=text name="reportee" id="reportee" placeholder="suspicious@mail.com" readonly></input>
           </li></div>
           <li>
-            <label for="user"><strong>From:</strong> Reporter</label>
-            <input type=text name="reporter" id="reporter" placeholder="your@mail.com"></input>
+            <label for="reporter">Reporter</label>
+            <input type=text name="reporter" id="reporter" readonly></input>
           </li>
           <!-- Temporary hide for alpha release -->
           <li style="display: none;">
@@ -42,12 +42,12 @@
             </div>
           </li>
           <li>
-            <label for="note">Note</label></br>
+            <label for="note">Note</label>
             <textarea name="note" id="note" rows=4 cols=60 placeholder="Anything else you think the report receiver should know?"></textarea>
           </li>
         </ul>
         <div class="centered">
-          <button id="send">Send</button>
+          <button id="send">Submit</button>
         </div>
       </form>
     </div>

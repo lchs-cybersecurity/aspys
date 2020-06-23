@@ -35,7 +35,9 @@ header {
 
 label, .label {
   font-size: 16px;
+  display: block;
   padding-right: 4px;
+  padding-bottom: 8px;
 }
 
 ul.fields {
@@ -51,7 +53,7 @@ input, textarea {
   border: 1px solid #222222;
   background-color: #ffffff00;
   border-radius: 8px;
-  padding: 4px;
+  padding: 10px;
 }
 
 textarea {
