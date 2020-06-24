@@ -121,25 +121,25 @@ function askFeedbackMaybe(alreadySent, countdown) {
 }
 
 function askFeedback() {
-    if (!$('.veritas-feedback').length) {
+    if (!$('.aspys-feedback').length) {
         $(document.body).append(`
-        <div class="veritas-feedback">
-            <div class="veritas-icon"></div>
-            <span>Greetings from LC Cybersecurity Club! You've been using Veritas for a while. Would you kindly like to give us feedback?</span>
+        <div class="aspys-feedback">
+            <div class="aspys-icon"></div>
+            <span>Greetings from LC Cybersecurity Club! You've been using Aspys for a while. Would you kindly like to give us feedback?</span>
             </br>
-            <div class="veritas-buttons">
-                <button class="veritas-feedback-yes">Sure!</button>
-                <button class="veritas-feedback-no">Later...</button>
+            <div class="aspys-buttons">
+                <button class="aspys-feedback-yes">Sure!</button>
+                <button class="aspys-feedback-no">Later...</button>
             </div>
         </div>
         `); 
     
-        $(".veritas-feedback-yes").click(function() {
+        $(".aspys-feedback-yes").click(function() {
             openFeedback()
             chrome.storage.sync.set({"feedback_countdown": 30})
             hideFeedbackRequest()
         }); 
-        $(".veritas-feedback-no").click(function() {
+        $(".aspys-feedback-no").click(function() {
             chrome.storage.sync.set({"feedback_countdown": 30})
             hideFeedbackRequest()
         }); 
@@ -147,7 +147,7 @@ function askFeedback() {
 }
 
 function hideFeedbackRequest() {
-    $('.veritas-feedback').remove(); 
+    $('.aspys-feedback').remove(); 
 }
 
 function getElementsByClass(className) {

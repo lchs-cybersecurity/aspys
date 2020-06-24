@@ -5,7 +5,7 @@
     right: -4px;
     height: 16px;
     width: 16px;
-    background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/veritas-assets/master/check.png");
+    background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/aspys-assets/master/check.png");
     background-size: 16px;
     background-repeat: no-repeat; 
 }
@@ -18,7 +18,7 @@
     height: 16px;
     width: 16px;
     background-size: 16px;
-    background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/veritas-assets/master/question-mark.png");
+    background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/aspys-assets/master/question-mark.png");
     background-repeat: no-repeat; 
 } 
 
@@ -30,7 +30,7 @@
     height: 16px;
     width: 16px;
     background-size: 16px;
-    background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/veritas-assets/master/alert.png");
+    background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/aspys-assets/master/alert.png");
     background-repeat: no-repeat; 
 }
 
@@ -63,7 +63,7 @@
     to   { opacity: 1; }
   }
 
-.veritas-feedback {
+.aspys-feedback {
     animation: fadeIn ease 1s;
     font-size: 18px;
     position: absolute;
@@ -79,18 +79,18 @@
     font-family: 'Google Sans', Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
 }
 
-.veritas-icon {
+.aspys-icon {
     position: absolute;
     top: -24px;
     left: -24px;
     height: 48px;
     width: 48px;
-    background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/veritas/master/assets/veritas-border.png");
+    background-image: url("https://raw.githubusercontent.com/lchs-cybersecurity/aspys/master/assets/aspys-border.png");
     background-size: 48px;
     background-repeat: no-repeat;
 }
 
-.veritas-feedback button {
+.aspys-feedback button {
     margin: auto;
     font-size: 20px;
     color: #ffffffe0;
@@ -103,20 +103,20 @@
     border: none;
 }
 
-.veritas-feedback-no {
+.aspys-feedback-no {
     background: linear-gradient(135deg, #397d5d 0%, #385e66 100%);
 }
 
-.veritas-feedback button:focus {
+.aspys-feedback button:focus {
     outline: none;
     box-shadow: 0px 0px 5px #00a380;
 }
 
-.veritas-feedback button:hover {
+.aspys-feedback button:hover {
     background-color: #cecece;
 }
 
-.veritas-buttons {
+.aspys-buttons {
     margin-top: 10px;
     text-align: center;
 }

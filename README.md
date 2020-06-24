@@ -1,5 +1,5 @@
 <div align="center">
-    <h1>Veritas</h1>
+    <h1>Aspys</h1>
     <img src="assets/icon-128.png" height="100" alt="icon"/>
     <h4>Google Chrome Extension</h4>
     <h3>Protect your organization from phishing attempts</h3>
