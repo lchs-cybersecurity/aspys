@@ -1,7 +1,7 @@
 function loadSettings() {
     chrome.storage.sync.get(null, function (data) {
         $('#domains').val(data['domains'].join('\n'))
-        $('#whitelist').val(data['whitelist'].join('\n'))
+        $('#whitelist').val(data['user_whitelist'].join('\n'))
         $('#report-to').val(data['report-to'])
     })
 }
@@ -33,7 +33,7 @@ function listify($element) {
 function saveOptions() {
     let options = {
         'domains':listify($('#domains')),
-        'whitelist':listify($('#whitelist')),
+        'user_whitelist':listify($('#whitelist')),
         'report-to':$('#report-to').val()
     }
     chrome.storage.sync.set(options, function() {

@@ -77,7 +77,7 @@ function changeElements(data) {
 }
 
 function verifyEmail() {
-    chrome.storage.sync.get(['domains', 'whitelist', 'feedback_countdown', 'sent_feedback', 'org_id'], function(data) {
+    chrome.storage.sync.get(['domains', 'user_whitelist', 'feedback_countdown', 'sent_feedback', 'org_id'], function(data) {
 
         askFeedbackMaybe(data['sent_feedback'], data['feedback_countdown'])
 
@@ -89,6 +89,8 @@ function verifyEmail() {
                 org_id: data.org_id, 
             }, 
         }); 
+
+        // NOTE: Get whitelist from mission control as well
     
         request.done(function(msg) {
             console.log(msg); 
@@ -177,16 +179,24 @@ function getUserEmail() {
 
 function checkIfVerifiedEmail(emailAddress, data) {
     for (let b of data['blacklist']) {
-        if (emailAddress == b) {
+        if (new RegExp(b).exec(emailAddress)) {
             return vStatuses[0]; 
         }
     } 
 
-    for (let w of data['whitelist']) {
+    // WARNING: Currently breaks extension. Add backend whitelist getter to resolve.
+    for (let b of data['whitelist']) {
+        if (new RegExp(b).exec(emailAddress)) {
+            return vStatuses[2]; 
+        }
+    } 
+
+    for (let w of data['user_whitelist']) {
         if (emailAddress == w) {
             return vStatuses[2]; 
         }
     }
+
     for (let d of data['domains']) {
         if (emailAddress.endsWith('@'+d)) {
             return vStatuses[3]; 
@@ -220,13 +230,13 @@ function openFeedback() {
 function whitelist($emailElement) {
     let emailAddress = getEmail($emailElement)
     let $whitelist = $emailElement.find('button.whitelist')
-    chrome.storage.sync.get('whitelist', function(data) {
-        let whitelist = data['whitelist']
+    chrome.storage.sync.get('user_whitelist', function(data) {
+        let whitelist = data['user_whitelist']
 
         if (!whitelist.includes(emailAddress) && emailAddress.length > 3) {
             whitelist.push(emailAddress); 
 
-            chrome.storage.sync.set({'whitelist': whitelist}, function() {
+            chrome.storage.sync.set({'user_whitelist': whitelist}, function() {
                 verifyEmail()
             }); 
         } 
@@ -236,15 +246,15 @@ function whitelist($emailElement) {
 function unwhitelist($emailElement) {
     let emailAddress = getEmail($emailElement)
     let $unwhitelist = $emailElement.find('button.unwhitelist')
-    chrome.storage.sync.get('whitelist', function(data) {
-        let whitelist = data['whitelist']
+    chrome.storage.sync.get('user_whitelist', function(data) {
+        let whitelist = data['user_whitelist']
 
         for (let i = whitelist.length - 1; i >= 0; i--) {
             if (whitelist[i] === emailAddress) {
                 whitelist.splice(i, 1);
             } 
 
-            chrome.storage.sync.set({'whitelist': whitelist}, function() {
+            chrome.storage.sync.set({'user_whitelist': whitelist}, function() {
                 verifyEmail()
             }); 
         } 

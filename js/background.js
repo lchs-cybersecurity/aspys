@@ -39,7 +39,7 @@ function setDefaultSettings() {
 }
 
 function writeDefault(org_id) {
-    chrome.storage.sync.set({domains:['lcusd.net', 'mylcusd.net'], whitelist:[], feedback_countdown:30, sent_feedback:false, org_id: org_id,})
+    chrome.storage.sync.set({domains:['lcusd.net', 'mylcusd.net'], user_whitelist:[], feedback_countdown:30, sent_feedback:false, org_id: org_id,})
 }
 
 chrome.runtime.onInstalled.addListener(function (info) {
