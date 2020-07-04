@@ -90,18 +90,17 @@ function verifyEmail() {
 
         askFeedbackMaybe(data['sent_feedback'], data['feedback_countdown'])
 
-        let request = $.ajax({
+        // get blacklist
+        let bl_request = $.ajax({
             type: "GET",
             url: config['host'] + config['get-blacklist'], 
             dataType: "json", 
             data: {
                 org_id: data.org_id, 
-            }, 
+            },
         }); 
 
-        // NOTE: Get whitelist from mission control as well
-    
-        request.done(function(msg) {
+        bl_request.done(function(msg) {
             console.log(msg); 
 
             data['blacklist'] = msg.data; 
@@ -109,7 +108,7 @@ function verifyEmail() {
             changeElements(data); 
         }); 
 
-        request.fail(function( jqXHR, textStatus ) {
+        bl_request.fail(function( jqXHR, textStatus ) {
             console.log(jqXHR); 
             console.log(textStatus); 
 
@@ -117,6 +116,34 @@ function verifyEmail() {
 
             changeElements(data); 
         })
+
+        // get whitelist
+        let wl_request = $.ajax({
+            type: "GET",
+            url: config['host'] + config['get-whitelist'], 
+            dataType: "json", 
+            data: {
+                org_id: data.org_id, 
+            },
+        }); 
+
+        wl_request.done(function(msg) {
+            console.log(msg); 
+
+            data['whitelist'] = msg.data; 
+
+            changeElements(data); 
+        }); 
+
+        wl_request.fail(function( jqXHR, textStatus ) {
+            console.log(jqXHR); 
+            console.log(textStatus); 
+
+            data['whitelist'] = []; 
+
+            changeElements(data); 
+        })
+
     })
 }
 
@@ -193,10 +220,9 @@ function checkIfVerifiedEmail(emailAddress, data) {
         }
     } 
 
-    // WARNING: Currently breaks extension. Add backend whitelist getter to resolve.
     for (let b of data['whitelist']) {
         if (new RegExp(b).exec(emailAddress)) {
-            return vStatuses[2]; 
+            return vStatuses[3]; 
         }
     } 
 
@@ -208,7 +234,7 @@ function checkIfVerifiedEmail(emailAddress, data) {
 
     for (let d of data['domains']) {
         if (emailAddress.endsWith('@'+d)) {
-            return vStatuses[3]; 
+            return vStatuses[2]; 
         }
     }
     return vStatuses[1]; 
