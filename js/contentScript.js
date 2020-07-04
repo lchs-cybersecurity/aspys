@@ -6,6 +6,13 @@ function addVClass($iconElement, data) { // adds the correct class based on veri
     let vStatus = checkIfVerifiedEmail(emailAddress, data); 
 
     $iconElement.removeClass(classes); // clears the verification classes on the element
+
+    alts={
+        'b': 'Blacklisted user',
+        'u': 'Unknown user',
+        'uv': 'Verified user (whitelisted by you)',
+        'dv': 'Verified user'
+    }
     
     if (vStatus == vStatuses[2]) {
         $iconElement.addClass(classes[2]); 
@@ -16,6 +23,8 @@ function addVClass($iconElement, data) { // adds the correct class based on veri
     } else {
         $iconElement.addClass(classes[1]); 
     } 
+
+    $iconElement.attr('title', alts[vStatus]);
 } 
 
 function unverifiedButtons($emailElement, $iconElement, $nameElement, data) { // the buttons to be put on a neutral email
