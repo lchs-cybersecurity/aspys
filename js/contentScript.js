@@ -14,10 +14,10 @@ function addVClass($iconElement, data) { // adds the correct class based on veri
         'dv': 'Verified user'
     }
     
-    if (vStatus == vStatuses[2]) {
-        $iconElement.addClass(classes[2]); 
-    } else if (vStatus == vStatuses[3]) {
+    if (vStatus == vStatuses[3]) {
         $iconElement.addClass(classes[3]); 
+    } else if (vStatus == vStatuses[2]) {
+        $iconElement.addClass(classes[2]); 
     } else if (vStatus == vStatuses[0]) {
         $iconElement.addClass(classes[0]); 
     } else {
