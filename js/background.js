@@ -38,6 +38,42 @@ function setDefaultSettings() {
     }); 
 }
 
+function setOrgID() {
+    chrome.identity.getProfileUserInfo(function(userInfo) {
+        const address = userInfo.email; 
+
+        let request = $.ajax({
+            type: "GET",
+            url: config['host'] + config['get-org'], 
+            contentType: 'application/json', 
+            dataType: "json", 
+            data: {
+                address: address, 
+            }, 
+        }); 
+
+        let org_id; 
+    
+        request.done(function(msg) {
+            console.log(msg); 
+
+            org_id = msg.ID
+
+            chrome.storage.sync.set({org_id: org_id,})
+        }); 
+    
+        request.fail(function( jqXHR, textStatus ) {
+            console.log(jqXHR); 
+            console.log(textStatus); 
+    
+            org_id = ""; 
+
+            chrome.storage.sync.set({org_id: org_id,})
+        }); 
+    }); 
+}
+
+
 function writeDefault(org_id) {
     chrome.storage.sync.set({domains:[], user_whitelist:[], feedback_countdown:30, sent_feedback:false, org_id: org_id,})
 }
@@ -64,7 +100,7 @@ chrome.runtime.onMessage.addListener(
 
 
 chrome.runtime.onStartup.addListener(function() {
-    setDefaultSettings()
+    setOrgID()
 })
 
 // If we want to update org_id on every gmail load (half-baked)
