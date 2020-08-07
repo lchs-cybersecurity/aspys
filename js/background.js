@@ -62,6 +62,23 @@ chrome.runtime.onMessage.addListener(
         }
 });
 
+
+chrome.runtime.onStartup.addListener(function() {
+    setDefaultSettings()
+})
+
+// If we want to update org_id on every gmail load (half-baked)
+/* chrome.tabs.onUpdated.addListener(function() {
+    chrome.tabs.query({
+        "active": true,
+        "lastFocusedWindow": true
+    }, function(tabs) {
+        var tabURL = tabs[0].url;
+        
+        console.log(tabURL);
+    });
+}) */
+
 chrome.tabs.onActivated.addListener(function(info) {
     chrome.tabs.get(info.tabId, function (tab) {
         siteChecker.update(tab)
