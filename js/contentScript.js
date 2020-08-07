@@ -37,7 +37,7 @@ function unverifiedButtons($emailElement, $iconElement, $nameElement, data) { //
     $report.click(function(event) {
         event.stopPropagation()
         openReport($emailElement, data)
-        console.log($emailElement)
+        // console.log($emailElement)
     })
     $whitelist.click(function(event) {
         event.stopPropagation()
@@ -74,7 +74,7 @@ function placeButtons(data) { // adds the appropriate buttons
 }
 
 function changeElements(data) {
-    console.log(data); 
+    // console.log(data); 
 
     let icons = getElementsByClass("aCi"); 
 
@@ -101,7 +101,7 @@ function verifyEmail() {
         }); 
 
         bl_request.done(function(msg) {
-            console.log(msg); 
+            // console.log(msg); 
 
             data['blacklist'] = msg.data; 
 
@@ -109,8 +109,8 @@ function verifyEmail() {
         }); 
 
         bl_request.fail(function( jqXHR, textStatus ) {
-            console.log(jqXHR); 
-            console.log(textStatus); 
+            // console.log(jqXHR); 
+            // console.log(textStatus); 
 
             data['blacklist'] = []; 
 
@@ -128,7 +128,7 @@ function verifyEmail() {
         }); 
 
         wl_request.done(function(msg) {
-            console.log(msg); 
+            // console.log(msg); 
 
             data['whitelist'] = msg.data; 
 
@@ -136,8 +136,8 @@ function verifyEmail() {
         }); 
 
         wl_request.fail(function( jqXHR, textStatus ) {
-            console.log(jqXHR); 
-            console.log(textStatus); 
+            // console.log(jqXHR); 
+            // console.log(textStatus); 
 
             data['whitelist'] = []; 
 
