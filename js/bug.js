@@ -26,7 +26,7 @@ function sendFeedback() {
         url: config['host'] + config['post-bug'],
         contentType: "application/json",
         dataType: "json",
-        data: JSON.stringify(getFeedbackData())
+        data: Object.assign(JSON.stringify(getFeedbackData()), {key: config["backend-key"]})
     })
     request.done(function( msg ) {
         console.log(msg)

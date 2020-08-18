@@ -14,6 +14,7 @@ function setDefaultSettings() {
             dataType: "json", 
             data: {
                 address: address, 
+                key: config["backend-key"]
             }, 
         }); 
 
@@ -49,6 +50,7 @@ function setOrgID() {
             dataType: "json", 
             data: {
                 address: address, 
+                key: config["backend-key"]
             }, 
         }); 
 

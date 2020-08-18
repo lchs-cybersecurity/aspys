@@ -97,6 +97,7 @@ function verifyEmail() {
             dataType: "json", 
             data: {
                 org_id: data.org_id, 
+                key: config["backend-key"]
             },
         }); 
 
@@ -124,6 +125,7 @@ function verifyEmail() {
             dataType: "json", 
             data: {
                 org_id: data.org_id, 
+                key: config["backend-key"]
             },
         }); 
 

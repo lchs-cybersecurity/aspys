@@ -39,7 +39,7 @@ function sendReport() {
         url: config['host'] + config['post-report'],
         contentType: "application/json",
         dataType: "json",
-        data: JSON.stringify(getReportData())
+        data: Object.assign(JSON.stringify(getReportData()), {key: config["backend-key"]})
     })
     request.done(function( msg ) {
         console.log(msg)
