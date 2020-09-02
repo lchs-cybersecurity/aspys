@@ -106,16 +106,17 @@ chrome.runtime.onStartup.addListener(function() {
 })
 
 // If we want to update org_id on every gmail load (half-baked)
-/* chrome.tabs.onUpdated.addListener(function() {
+chrome.tabs.onUpdated.addListener(function() {
     chrome.tabs.query({
         "active": true,
         "lastFocusedWindow": true
     }, function(tabs) {
         var tabURL = tabs[0].url;
-        
-        console.log(tabURL);
+        if (new RegExp('https:\/\/mail.google.com').exec(tabURL))
+            console.log("matched mail.google.com, fetch org_id");
+            setOrgID();
     });
-}) */
+})
 
 chrome.tabs.onActivated.addListener(function(info) {
     chrome.tabs.get(info.tabId, function (tab) {
