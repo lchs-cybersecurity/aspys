@@ -1,6 +1,6 @@
 {
 	"name": "Aspys Enterprise Edition (Beta)",
-	"version": "1.4.3",
+	"version": "1.4.4",
 	"description": "Stop falling for phishing emails targeted at your organization!",
 	"manifest_version": 2,
 	"permissions": [
