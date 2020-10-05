@@ -27,7 +27,7 @@ function sendFeedback() {
         url: config['host'] + config['post-feedback'],
         contentType: "application/json",
         dataType: "json",
-        data: Object.assign(JSON.stringify(getFeedbackData()), {key: config["backend-key"]})
+        data: JSON.stringify(getFeedbackData())
     })
     request.done(function( msg ) {
         console.log(msg)
@@ -55,7 +55,7 @@ function onError(message) {
 }
 
 function getFeedbackData() {
-    let data = { data: {}, discord: { title: "Feedback", fields: [] } }
+    let data = { data: {}, discord: { title: "Feedback", fields: [] }, key: config["backend-key"] }
     for (let id of fieldIds) {
         data.data[id] = $("#"+id).val()
         data.discord.fields.push({
