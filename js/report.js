@@ -39,7 +39,7 @@ function sendReport() {
         url: config['host'] + config['post-report'],
         contentType: "application/json",
         dataType: "json",
-        data: Object.assign(JSON.stringify(getReportData()), {key: config["backend-key"]})
+        data: JSON.stringify(getReportData())
     })
     request.done(function( msg ) {
         console.log(msg)
@@ -76,7 +76,7 @@ function onError(message) {
 
 function getReportData() {
     return {
-        data: {
+        report_data: {
             reportee: $('#reportee').val(),
             reporter: $('#reporter').val(),
             receiver: $('#receiver').val(),
@@ -84,6 +84,7 @@ function getReportData() {
             body: $('#contents').prop('outerHTML'), 
         }, 
         org_id: org_id, 
+        key: config['backend-key']
     }
 }
 
