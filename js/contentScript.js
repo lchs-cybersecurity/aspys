@@ -196,10 +196,10 @@ function checkIfVerifiedEmail(emailAddress, data) {
         }
     }
     // whitelisted (1) --> 3
-    if (data == '1') { return vStatuses[3]; }
+    if (data['status'] == '1') { return vStatuses[3]; }
 
     // blacklisted (2) --> 0
-    else if (data == '2') { return vStatuses[0]; }
+    else if (data['status'] == '2') { return vStatuses[0]; }
     
     // unidentified (0) --> 1
     return vStatuses[1];
