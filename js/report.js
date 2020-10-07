@@ -18,7 +18,10 @@ $(document).ready(function() {
         $('#receiver').val(storageData['report-to'])
     }) 
 
-    org_id = urlData.org_id; 
+    // org_id = urlData.org_id; 
+    chrome.storage.sync.get('org_id', function(data){
+        org_id = data['org_id']
+    })
 })
 
 $('#send').click(function() {
