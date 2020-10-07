@@ -88,61 +88,33 @@ function changeElements(data) {
 function verifyEmail() {
     chrome.storage.sync.get(['domains', 'user_whitelist', 'feedback_countdown', 'sent_feedback', 'org_id'], function(data) {
 
-        askFeedbackMaybe(data['sent_feedback'], data['feedback_countdown'])
+        // askFeedbackMaybe(data['sent_feedback'], data['feedback_countdown'])
+        
+        email = document.getElementsByClassName("gD")[0].getAttribute("email")
 
-        // get blacklist
-        let bl_request = $.ajax({
+        let ver_request = $.ajax({
             type: "GET",
-            url: config['host'] + config['get-blacklist'], 
+            url: config['host'] + config['verify-email'], 
             dataType: "json", 
             data: {
                 org_id: data.org_id, 
-                key: config["backend-key"]
-            },
+                key: config["backend-key"],
+                address: email
+            }
         }); 
 
-        bl_request.done(function(msg) {
-            // console.log(msg); 
+        ver_request.done(function(msg) {
+            // console.log(msg.data)
 
-            data['blacklist'] = msg.data; 
-
+            data = {status: msg['status'], user_whitelist: data['user_whitelist']}; 
             changeElements(data); 
         }); 
 
-        bl_request.fail(function( jqXHR, textStatus ) {
+        ver_request.fail(function( jqXHR, textStatus ) {
             // console.log(jqXHR); 
             // console.log(textStatus); 
 
-            data['blacklist'] = []; 
-
-            changeElements(data); 
-        })
-
-        // get whitelist
-        let wl_request = $.ajax({
-            type: "GET",
-            url: config['host'] + config['get-whitelist'], 
-            dataType: "json", 
-            data: {
-                org_id: data.org_id, 
-                key: config["backend-key"]
-            },
-        }); 
-
-        wl_request.done(function(msg) {
-            // console.log(msg); 
-
-            data['whitelist'] = msg.data; 
-
-            changeElements(data); 
-        }); 
-
-        wl_request.fail(function( jqXHR, textStatus ) {
-            // console.log(jqXHR); 
-            // console.log(textStatus); 
-
-            data['whitelist'] = []; 
-
+            data = []; 
             changeElements(data); 
         })
 
@@ -216,30 +188,21 @@ function getUserEmail() {
 }
 
 function checkIfVerifiedEmail(emailAddress, data) {
-    for (let b of data['blacklist']) {
-        if (new RegExp(b).exec(emailAddress)) {
-            return vStatuses[0]; 
-        }
-    } 
-
-    for (let b of data['whitelist']) {
-        if (new RegExp(b).exec(emailAddress)) {
-            return vStatuses[3]; 
-        }
-    } 
 
     for (let w of data['user_whitelist']) {
+        // user whitelisted --> 2
         if (emailAddress == w) {
-            return vStatuses[2]; 
+            return vStatuses[2];
         }
     }
+    // whitelisted (1) --> 3
+    if (data == '1') { return vStatuses[3]; }
 
-    for (let d of data['domains']) {
-        if (emailAddress.endsWith('@'+d)) {
-            return vStatuses[2]; 
-        }
-    }
-    return vStatuses[1]; 
+    // blacklisted (2) --> 0
+    else if (data == '2') { return vStatuses[0]; }
+    
+    // unidentified (0) --> 1
+    return vStatuses[1];
 }
 
 function encodeEmailData($emailElement, data) {

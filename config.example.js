@@ -5,6 +5,7 @@ var config = {
     "post-bug": "api/bug", 
     "get-blacklist": "api/blacklist", 
     "get-whitelist": "api/whitelist", 
+    "verify-email": "api/verify_email",
     "info-page": "info",
     "get-org": "api/get_org", 
     "chrome-webstore-link": "https://http.cat/404",
