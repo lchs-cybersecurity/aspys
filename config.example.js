@@ -8,7 +8,7 @@ var config = {
     "verify-email": "api/verify_email",
     "info-page": "info",
     "get-org": "api/get_org", 
-    "chrome-webstore-link": "https://http.cat/404",
+    "chrome-webstore-link": "https://chrome.google.com/webstore/detail/aspys-enterprise-edition/nbekjbeajejoahbleojaibkdaipccjol",
     "top-domains": [
         "google.com",
         "youtube.com",
