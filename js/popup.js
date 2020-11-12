@@ -11,7 +11,7 @@ function makeIconsClickable() {
         chrome.tabs.create({url: chrome.extension.getURL('html/bug.html')});
     })
     $('#info').click(function() {
-        chrome.tabs.create({url: config['info-page']});
+        chrome.tabs.create({url: config['info-page-link']});
     })
 }
 
