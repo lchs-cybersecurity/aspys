@@ -3,7 +3,8 @@ const classes = ['blacklisted', 'unverified', 'user-verified', 'domain-verified'
 
 function addVClass($iconElement, data) { // adds the correct class based on verification status
     let emailAddress = getEmail($iconElement.parent().parent())
-    let vStatus = checkIfVerifiedEmail(emailAddress, data); 
+    // let vStatus = checkIfVerifiedEmail(emailAddress, data); 
+    let vStatus = checkIfVerifiedEmail(data[emailAddress])
 
     $iconElement.removeClass(classes); // clears the verification classes on the element
 
@@ -88,26 +89,48 @@ function changeElements(data) {
 function verifyEmail() {
     chrome.storage.sync.get(['domains', 'user_whitelist', 'feedback_countdown', 'sent_feedback', 'org_id'], function(data) {
 
+        // add back once we fix the feedback timer
         // askFeedbackMaybe(data['sent_feedback'], data['feedback_countdown'])
         
-        email = document.getElementsByClassName("gD")[0].getAttribute("email")
+        // email_elements = document.getElementsByClassName("gD")[0].getAttribute("email")
+        email_elements = document.getElementsByClassName("gD")
+        emails = []
+
+        for (let element of email_elements) {
+            email = element.getAttribute("email")
+            if (!(emails.includes(email))) { // redundnacy check
+                emails.push(email)
+            }
+        }
 
         let ver_request = $.ajax({
             type: "GET",
-            url: config['host'] + config['verify-email'], 
+            url: config['host'] + config['verify-emails'], 
             dataType: "json", 
+            traditional: true,
             data: {
                 org_id: data.org_id, 
                 key: config["backend-key"],
-                address: email
+                addresses: emails
             }
         }); 
 
         ver_request.done(function(msg) {
-            // console.log(msg.data)
 
-            data = {status: msg['status'], user_whitelist: data['user_whitelist']}; 
-            changeElements(data); 
+            // Check against client whitelist
+            for (var emailkey in msg) {
+                if (msg[emailkey] == 0) { // if unverified server-side
+                    for (let w of data['user_whitelist']) {
+                        if (emailkey == w) {
+                            msg[emailkey] = 3
+                        }
+                    }
+                }
+            }
+            // console.log(msg)
+
+            // data = {status: msg['status'], user_whitelist: data['user_whitelist']}; 
+            changeElements(msg); 
         }); 
 
         ver_request.fail(function( jqXHR, textStatus ) {
@@ -187,19 +210,16 @@ function getUserEmail() {
     return $(document).find('div.gb_sb').prop('innerHTML')
 }
 
-function checkIfVerifiedEmail(emailAddress, data) {
+function checkIfVerifiedEmail(data) {
 
-    for (let w of data['user_whitelist']) {
-        // user whitelisted --> 2
-        if (emailAddress == w) {
-            return vStatuses[2];
-        }
-    }
     // whitelisted (1) --> 3
-    if (data['status'] == '1') { return vStatuses[3]; }
+    if (data == '1') { console.log("VERIFIED"); return vStatuses[3]; }
+
+    // user-whitelisted (3) --> 2
+    else if (data == '3') { return vStatuses[2]; }
 
     // blacklisted (2) --> 0
-    else if (data['status'] == '2') { return vStatuses[0]; }
+    else if (data == '2') { return vStatuses[0]; }
     
     // unidentified (0) --> 1
     return vStatuses[1];

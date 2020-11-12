@@ -6,6 +6,7 @@ var config = {
     "get-blacklist": "api/blacklist", 
     "get-whitelist": "api/whitelist", 
     "verify-email": "api/verify_email",
+    "verify-emails": "api/verify_emails",
     "info-page": "info",
     "get-org": "api/get_org", 
     "chrome-webstore-link": "https://chrome.google.com/webstore/detail/aspys-enterprise-edition/nbekjbeajejoahbleojaibkdaipccjol",
