@@ -7,9 +7,9 @@ var config = {
     "get-whitelist": "api/whitelist", 
     "verify-email": "api/verify_email",
     "verify-emails": "api/verify_emails",
-    "info-page": "info",
     "get-org": "api/get_org", 
     "chrome-webstore-link": "https://chrome.google.com/webstore/detail/aspys-enterprise-edition/nbekjbeajejoahbleojaibkdaipccjol",
+    "info-page-link": "https://lchs-cybersecurity.github.io/aspys",
     "top-domains": [
         "google.com",
         "youtube.com",

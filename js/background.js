@@ -94,7 +94,7 @@ chrome.runtime.onMessage.addListener(
         } else if (request.action == "open-feedback") {
             chrome.tabs.create({url:`../html/feedback.html`})
         } else if (request.action == "open-info") {
-            chrome.tabs.create({url:config['host']+config['info-page']})
+            chrome.tabs.create({url:config['info-page-link']})
         } else if (request.action == "site-analysis") {
             sendResponse(siteChecker)
         }
