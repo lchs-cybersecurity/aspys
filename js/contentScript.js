@@ -289,12 +289,38 @@ function checkNodesThenVerify(mutationsList) {
             verifyEmail()
         }
     }
+} 
+
+function checkLinks(mutationsList) {
+    for (let mutation of mutationsList) {
+        const addedNodes = Array.from(mutation.addedNodes); 
+
+        const asAdded = addedNodes && addedNodes.some( node => node.nodeName == 'a' ); 
+        const hrefChanged = mutation.attributeName; 
+
+        if (asAdded || hrefChanged) {
+            neuterLinks(); 
+
+            return; 
+        } 
+    }
 }
 
-const observer = new MutationObserver(checkNodesThenVerify)
+const observer = new MutationObserver(checkNodesThenVerify); 
+
 observer.observe(document.body, {
     attributes: false,
     characterData: false,
     childList: true,
     subtree: true
-})
+}); 
+
+const linkObs = new MutationObserver(checkLinks); 
+
+linkObs.observe(document.body, {
+    attributes: true,
+    attributesFilter: ['href'], 
+    characterData: false,
+    childList: true,
+    subtree: true
+}); 
