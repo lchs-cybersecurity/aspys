@@ -292,18 +292,7 @@ function checkNodesThenVerify(mutationsList) {
 } 
 
 function checkLinks(mutationsList) {
-    for (let mutation of mutationsList) {
-        const addedNodes = Array.from(mutation.addedNodes); 
-
-        const asAdded = addedNodes && addedNodes.some( node => node.nodeName == 'a' ); 
-        const hrefChanged = mutation.attributeName; 
-
-        if (asAdded || hrefChanged) {
-            neuterLinks(); 
-
-            return; 
-        } 
-    }
+    neuterLinks(); 
 }
 
 const observer = new MutationObserver(checkNodesThenVerify); 
@@ -319,7 +308,7 @@ const linkObs = new MutationObserver(checkLinks);
 
 linkObs.observe(document.body, {
     attributes: true,
-    attributesFilter: ['href'], 
+    attributeFilter: ['href'], 
     characterData: false,
     childList: true,
     subtree: true
