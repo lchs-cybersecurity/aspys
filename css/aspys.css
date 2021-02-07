@@ -21,6 +21,8 @@ body {
   font-family: 'Ubuntu', Roboto, sans-serif;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   position: relative;
   color: #ffffffe0;
@@ -169,7 +171,8 @@ footer, .flex-container {
 }
 
 footer {
-  position: absolute;
+  margin-top: auto;
+  padding-top: 20px;
   bottom: 0;
   width: 100%;
   font-size: 16px;
