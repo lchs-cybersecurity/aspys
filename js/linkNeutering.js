@@ -37,25 +37,44 @@ function createPopup($this) {
     })
 }
 
+function isUnverified(index, emailElement) {
+    let $emailElement = $(emailElement); 
+    
+    let $iconElement = getIconElement($emailElement); 
+
+    return !$iconElement.hasClass(classes[2]) && !$iconElement.hasClass(classes[3]); 
+}
+
 function neuterLinks() {
-    let as = $('.adn').find('div.a3s').find('a'); // finds all the a elements in each email body
+    $('a').removeClass('epic'); 
+
+    let $emails = $('.adn'); 
+    let $unverified = $emails.filter(isUnverified); 
+
+    //console.log($unverified) 
+
+    let as = $unverified.find('div.a3s').find('a'); // finds all the a elements in each email body
 
     //console.log(as); 
 
     as.addClass('epic'); 
 
+    console.log(as); 
+
     as.click(function(e) {
         let $this = $(this); 
+        
+        if ($this.hasClass('epic')) {
+            const next = $this.next('.aspys-link-confirm'); // does it already have a corresponding popup? 
 
-        const next = $this.next('.aspys-link-confirm'); // does it already have a corresponding popup? 
+            //console.log(next); 
 
-        //console.log(next); 
+            if (!next.length) { // if not, create one
+                createPopup($this); 
+            } 
 
-        if (!next.length) { // if not, create one
-            createPopup($this); 
+            e.preventDefault(); // prevents the click from opening the link (the default behavior) 
+            e.stopPropagation(); // prevents the event from propagating up the DOM tree
         } 
-
-        e.preventDefault(); // prevents the click from opening the link (the default behavior) 
-        e.stopPropagation(); // prevents the event from propagating up the DOM tree
     })
 } 

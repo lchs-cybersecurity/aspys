@@ -96,6 +96,8 @@ function verifyEmail() {
         email_elements = document.getElementsByClassName("gD")
         emails = []
 
+        console.log(data); 
+
         for (let element of email_elements) {
             email = element.getAttribute("email")
             if (!(emails.includes(email))) { // redundnacy check
@@ -116,6 +118,7 @@ function verifyEmail() {
         }); 
 
         ver_request.done(function(msg) {
+            console.log(msg) 
 
             // Check against client whitelist
             for (var emailkey in msg) {
@@ -211,6 +214,7 @@ function getUserEmail() {
 }
 
 function checkIfVerifiedEmail(data) {
+    //console.log(data) 
 
     // whitelisted (1) --> 3
     if (data == '1') { console.log("VERIFIED"); return vStatuses[3]; }
