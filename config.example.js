@@ -1,5 +1,5 @@
 var config = {
-    "host": "https://veritas.computer/",
+    "host": "https://aspys.tk/",
     "post-report": "api/report",
     "post-feedback": "api/feedback",
     "post-bug": "api/bug", 
